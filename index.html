@@ -3,41 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shark Hub | Galaxy</title>
-    <!-- Стили -->
+    <title>Vesperia Hub | Ultimate</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Иконка вкладки -->
     <link rel="icon" type="image/png" href="favicon.png">
-    <!-- Библиотека красивых иконок (FontAwesome) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- Живой фон -->
     <div class="background-animation"></div>
     <div class="stars"></div>
+    <div class="twinkling"></div>
 
     <div class="container">
         <header>
             <div class="logo-area">
-                <h1>SHARK HUB</h1>
-                <span class="version">v4.0 AI Search</span>
+                <h1 class="glitch-text" data-text="VESPERIA HUB">VESPERIA HUB</h1>
+                <span class="version">v5.0 TITAN</span>
             </div>
             
             <div class="search-wrapper">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="search" class="search-box" placeholder="Поиск (понимает даже rjhjdst 'корявые' запросы)...">
+                <input type="text" id="search" class="search-box" placeholder="Поиск по галактике (понимает ghbdtn / привет)...">
             </div>
         </header>
 
-        <!-- Навигация по вкладкам -->
         <nav id="tabs-nav" class="tabs-nav"></nav>
-
-        <!-- Контент -->
         <div id="content"></div>
     </div>
 
-    <!-- Логика -->
     <script src="script.js"></script>
 </body>
 </html>
