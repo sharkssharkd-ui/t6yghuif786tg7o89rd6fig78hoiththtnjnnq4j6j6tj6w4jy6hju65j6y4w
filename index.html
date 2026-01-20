@@ -3,341 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shark Hub | Cosmic Portal</title>
-    <style>
-        :root {
-            --bg-color: #050510;
-            --card-bg: rgba(20, 20, 40, 0.6);
-            --card-border: rgba(138, 43, 226, 0.3);
-            --accent: #8a2be2;
-            --text-main: #ffffff;
-            --text-sec: #b3b3b3;
-            --glow: 0 0 15px rgba(138, 43, 226, 0.5);
-        }
-
-        body {
-            background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(75, 0, 130, 0.4) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(138, 43, 226, 0.2) 0%, transparent 40%);
-            color: var(--text-main);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-        }
-
-        /* Анимация звезд */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
-            opacity: 0.3;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            padding: 40px 0;
-            animation: fadeIn 1s ease-in;
-        }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #fff, #a855f7, #fff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: var(--glow);
-        }
-
-        .search-box {
-            width: 100%;
-            max-width: 500px;
-            padding: 15px 25px;
-            border-radius: 30px;
-            border: 1px solid var(--card-border);
-            background: rgba(0, 0, 0, 0.3);
-            color: white;
-            font-size: 1.1rem;
-            outline: none;
-            transition: 0.3s;
-            backdrop-filter: blur(5px);
-        }
-
-        .search-box:focus {
-            box-shadow: var(--glow);
-            border-color: var(--accent);
-        }
-
-        .category-title {
-            margin-top: 40px;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            color: #d8b4fe;
-            border-bottom: 2px solid var(--accent);
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 15px;
-            text-decoration: none;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--glow);
-            background: rgba(138, 43, 226, 0.2);
-            border-color: #d8b4fe;
-        }
-
-        .card img {
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
-        }
-
-        .card-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card-title {
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .card-desc {
-            font-size: 0.8rem;
-            color: var(--text-sec);
-            margin-top: 2px;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Скроллбар */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #050510; }
-        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
-    </style>
+    <title>Shark Hub | Galaxy</title>
+    <!-- Стили -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Иконка вкладки -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <!-- Библиотека красивых иконок (FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
+    <!-- Живой фон -->
+    <div class="background-animation"></div>
+    <div class="stars"></div>
+
     <div class="container">
         <header>
-            <h1>SHARK HUB</h1>
-            <p style="color: #a855f7;">Твоя персональная база знаний</p>
-            <br>
-            <input type="text" id="search" class="search-box" placeholder="🔍 Поиск сайта...">
+            <div class="logo-area">
+                <h1>SHARK HUB</h1>
+                <span class="version">v4.0 AI Search</span>
+            </div>
+            
+            <div class="search-wrapper">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="search" class="search-box" placeholder="Поиск (понимает даже rjhjdst 'корявые' запросы)...">
+            </div>
         </header>
 
+        <!-- Навигация по вкладкам -->
+        <nav id="tabs-nav" class="tabs-nav"></nav>
+
+        <!-- Контент -->
         <div id="content"></div>
     </div>
 
-    <script>
-        // БАЗА ДАННЫХ САЙТОВ
-        const db = [
-            {
-                category: "🦁 Избранное (Главное)",
-                sites: [
-                    { name: "Bisquit Host", url: "https://bisquit.host/", desc: "Твой хостинг" },
-                    { name: "Telegram Web", url: "https://web.telegram.org/", desc: "Мессенджер" },
-                    { name: "Discord", url: "https://discord.com/login", desc: "Войс чаты" },
-                    { name: "Яндекс Музыка", url: "https://music.yandex.ru/", desc: "Плеер" },
-                    { name: "Фоксфорд", url: "https://foxford.ru/", desc: "Школа" },
-                    { name: "Piskel", url: "https://www.piskelapp.com/", desc: "Рисование спрайтов" },
-                    { name: "ResizePixel", url: "https://www.resizepixel.com/ru/", desc: "Редактор размера" },
-                    { name: "PostImages", url: "https://postimages.org/", desc: "Хостинг фото" },
-                    { name: "Check-Host", url: "https://check-host.net/", desc: "Проверка IP" },
-                    { name: "MC Icons", url: "https://mcicons.ccleaf.com/", desc: "Иконки серверов" }
-                ]
-            },
-            {
-                category: "🧠 Нейросети (AI)",
-                sites: [
-                    { name: "ChatGPT", url: "https://chat.openai.com/", desc: "OpenAI Чат" },
-                    { name: "Google AI Studio", url: "https://aistudio.google.com/", desc: "Gemini Pro" },
-                    { name: "Grok", url: "https://grok.x.ai/", desc: "ИИ от Илона Маска" },
-                    { name: "Claude AI", url: "https://claude.ai/", desc: "Умный ассистент" },
-                    { name: "Perplexity", url: "https://www.perplexity.ai/", desc: "Поисковик фактов" },
-                    { name: "Midjourney", url: "https://www.midjourney.com/", desc: "Генерация артов" },
-                    { name: "Suno", url: "https://suno.com/", desc: "Создание музыки" },
-                    { name: "ElevenLabs", url: "https://elevenlabs.io/", desc: "Озвучка текста" },
-                    { name: "VocalRemover", url: "https://vocalremover.org/ru/", desc: "Удалить голос из песни" },
-                    { name: "Hugging Face", url: "https://huggingface.co/", desc: "Модели нейросетей" },
-                    { name: "Civitai", url: "https://civitai.com/", desc: "Модели для SD" },
-                    { name: "Phind", url: "https://www.phind.com/", desc: "ИИ для кодеров" }
-                ]
-            },
-            {
-                category: "🎮 Minecraft Администрирование",
-                sites: [
-                    { name: "PlanetMinecraft", url: "https://www.planetminecraft.com/", desc: "Карты и скины" },
-                    { name: "Modrinth", url: "https://modrinth.com/", desc: "Лучшие моды" },
-                    { name: "CurseForge", url: "https://www.curseforge.com/minecraft", desc: "База модов" },
-                    { name: "NameMC", url: "https://ru.namemc.com/", desc: "История ников" },
-                    { name: "ChunkBase", url: "https://www.chunkbase.com/", desc: "Поиск биомов" },
-                    { name: "Minecraft Tools", url: "https://minecraft.tools/ru/", desc: "Генераторы" },
-                    { name: "SpigotMC", url: "https://www.spigotmc.org/", desc: "Плагины" },
-                    { name: "NovaSkin", url: "https://novaskin.me/", desc: "Скин эдитор" },
-                    { name: "MapMaking Tools", url: "https://mcstacker.net/", desc: "Генератор команд" },
-                    { name: "Litematica", url: "https://masa.dy.fi/litematica/", desc: "Схематики" },
-                    { name: "Birdflop", url: "https://birdflop.com/", desc: "Анализ таймингов" },
-                    { name: "Auracloud", url: "https://auracloud.host/", desc: "Тест хостинг" }
-                ]
-            },
-            {
-                category: "🌀 Символы и Дизайн",
-                sites: [
-                    { name: "Unicode Table", url: "https://unicode-table.com/ru/", desc: "Все символы мира" },
-                    { name: "CoolSymbol", url: "https://coolsymbol.com/", desc: "Копировать значки" },
-                    { name: "Symbl.cc", url: "https://symbl.cc/ru/", desc: "Поиск эмодзи" },
-                    { name: "Kaomoji", url: "https://kaomoji.ru/", desc: "Японские смайлы" },
-                    { name: "Google Fonts", url: "https://fonts.google.com/", desc: "Шрифты" },
-                    { name: "Photopea", url: "https://www.photopea.com/", desc: "Photoshop Online" },
-                    { name: "Remove.bg", url: "https://www.remove.bg/", desc: "Удалить фон" },
-                    { name: "Coolors", url: "https://coolors.co/", desc: "Палитры цветов" },
-                    { name: "Figma", url: "https://www.figma.com/", desc: "Интерфейсы" },
-                    { name: "EzGif", url: "https://ezgif.com/", desc: "Работа с GIF" }
-                ]
-            },
-            {
-                category: "🛠 Полезные инструменты",
-                sites: [
-                    { name: "Cobalt Tools", url: "https://cobalt.tools/", desc: "Скачать видео без водяных знаков" },
-                    { name: "VirusTotal", url: "https://www.virustotal.com/", desc: "Проверка на вирусы" },
-                    { name: "TempMail", url: "https://temp-mail.org/", desc: "Временная почта" },
-                    { name: "Convertio", url: "https://convertio.co/ru/", desc: "Конвертер файлов" },
-                    { name: "DeepL", url: "https://www.deepl.com/translator", desc: "Лучший переводчик" },
-                    { name: "Archive.org", url: "https://web.archive.org/", desc: "Машина времени" },
-                    { name: "SpeedTest", url: "https://www.speedtest.net/", desc: "Скорость инета" },
-                    { name: "IP Logger", url: "https://iplogger.org/", desc: "Сокращение ссылок" },
-                    { name: "Ninite", url: "https://ninite.com/", desc: "Установка программ оптом" },
-                    { name: "TinyWow", url: "https://tinywow.com/", desc: "PDF инструменты" }
-                ]
-            },
-            {
-                category: "🎲 Развлечения и Залипалово",
-                sites: [
-                    { name: "Neal.fun", url: "https://neal.fun/", desc: "Мини-игры" },
-                    { name: "GeoGuessr", url: "https://www.geoguessr.com/", desc: "Угадай страну" },
-                    { name: "Radio Garden", url: "http://radio.garden/", desc: "Радио на глобусе" },
-                    { name: "FlightRadar24", url: "https://www.flightradar24.com/", desc: "Самолеты" },
-                    { name: "Stellarium", url: "https://stellarium-web.org/", desc: "Звездное небо" },
-                    { name: "QuickDraw", url: "https://quickdraw.withgoogle.com/", desc: "Рисование с ИИ" },
-                    { name: "Akinator", url: "https://ru.akinator.com/", desc: "Джинн" },
-                    { name: "Incredibox", url: "https://www.incredibox.com/", desc: "Битбоксер" },
-                    { name: "MyInstants", url: "https://www.myinstants.com/", desc: "Звуки мемов" },
-                    { name: "WindowSwap", url: "https://www.window-swap.com/", desc: "Чужие окна" }
-                ]
-            },
-            {
-                category: "💻 Кодинг и IT",
-                sites: [
-                    { name: "GitHub", url: "https://github.com/", desc: "Репозитории" },
-                    { name: "StackOverflow", url: "https://stackoverflow.com/", desc: "Вопросы и ответы" },
-                    { name: "Replit", url: "https://replit.com/", desc: "IDE в браузере" },
-                    { name: "Roadmap.sh", url: "https://roadmap.sh/", desc: "Путь развития" },
-                    { name: "Carbon", url: "https://carbon.now.sh/", desc: "Красивый код" },
-                    { name: "JSON Lint", url: "https://jsonlint.com/", desc: "Валидатор JSON" },
-                    { name: "RegExr", url: "https://regexr.com/", desc: "Регулярные выражения" },
-                    { name: "DevDocs", url: "https://devdocs.io/", desc: "Документация" }
-                ]
-            },
-            {
-                category: "🛒 Магазины и Ключи",
-                sites: [
-                    { name: "SteamDB", url: "https://steamdb.info/", desc: "База Steam" },
-                    { name: "FunPay", url: "https://funpay.com/", desc: "Биржа валют" },
-                    { name: "Plati Market", url: "https://plati.market/", desc: "Ключи" },
-                    { name: "Pepper", url: "https://www.pepper.ru/", desc: "Скидки" },
-                    { name: "DNS", url: "https://www.dns-shop.ru/", desc: "Техника" }
-                ]
-            }
-        ];
-
-        // Функция рендера
-        const contentDiv = document.getElementById('content');
-        
-        function renderSites(filter = "") {
-            contentDiv.innerHTML = "";
-            db.forEach(cat => {
-                const filteredSites = cat.sites.filter(site => 
-                    site.name.toLowerCase().includes(filter.toLowerCase()) || 
-                    site.desc.toLowerCase().includes(filter.toLowerCase())
-                );
-
-                if (filteredSites.length > 0) {
-                    const section = document.createElement('div');
-                    
-                    const title = document.createElement('h2');
-                    title.className = 'category-title';
-                    title.innerText = cat.category;
-                    section.appendChild(title);
-
-                    const grid = document.createElement('div');
-                    grid.className = 'grid';
-
-                    filteredSites.forEach(site => {
-                        const card = document.createElement('a');
-                        card.className = 'card';
-                        card.href = site.url;
-                        card.target = "_blank"; // Открывать в новой вкладке
-
-                        // Использование Google Favicon API
-                        const iconUrl = `https://www.google.com/s2/favicons?domain=${new URL(site.url).hostname}&sz=64`;
-
-                        card.innerHTML = `
-                            <img src="${iconUrl}" alt="icon" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1006/1006771.png'">
-                            <div class="card-info">
-                                <span class="card-title">${site.name}</span>
-                                <span class="card-desc">${site.desc}</span>
-                            </div>
-                        `;
-                        grid.appendChild(card);
-                    });
-
-                    section.appendChild(grid);
-                    contentDiv.appendChild(section);
-                }
-            });
-        }
-
-        // Поиск
-        document.getElementById('search').addEventListener('input', (e) => {
-            renderSites(e.target.value);
-        });
-
-        // Запуск
-        renderSites();
-    </script>
+    <!-- Логика -->
+    <script src="script.js"></script>
 </body>
 </html>
