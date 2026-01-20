@@ -1,425 +1,287 @@
-const categoryIcons = {
-    "Избранное": "fa-solid fa-star",
-    "Главное": "fa-solid fa-house",
-    "Утилиты": "fa-solid fa-toolbox",
-    "AI / Нейро": "fa-solid fa-robot",
-    "Minecraft": "fa-solid fa-cube",
-    "Визуал": "fa-solid fa-palette",
-    "Фан": "fa-solid fa-gamepad",
-    "Космос": "fa-solid fa-user-astronaut",
-    "Аудио": "fa-solid fa-headphones",
-    "Наука": "fa-solid fa-atom",
-    "IT / Код": "fa-solid fa-terminal",
-    "Магазины": "fa-solid fa-cart-shopping",
-    "Учеба": "fa-solid fa-book-open"
-};
-
-// === ОГРОМНАЯ БАЗА ДАННЫХ ===
-const db = [
-    // === ГЛАВНОЕ (База) ===
-    { cat: "Главное", name: "Bisquit Host", url: "https://bisquit.host/", desc: "Хостинг серверов" },
-    { cat: "Главное", name: "Telegram Web", url: "https://web.telegram.org/", desc: "Телеграм" },
-    { cat: "Главное", name: "Discord", url: "https://discord.com/login", desc: "Дискорд" },
-    { cat: "Главное", name: "YouTube", url: "https://www.youtube.com/", desc: "Видео" },
-    { cat: "Главное", name: "VK", url: "https://vk.com/", desc: "ВКонтакте" },
-    { cat: "Главное", name: "Gmail", url: "https://mail.google.com/", desc: "Почта Google" },
-    { cat: "Главное", name: "Яндекс Почта", url: "https://mail.yandex.ru/", desc: "Почта Яндекс" },
-    { cat: "Главное", name: "Google Drive", url: "https://drive.google.com/", desc: "Облако Диск" },
-    { cat: "Главное", name: "Яндекс Диск", url: "https://disk.yandex.ru/", desc: "Облако Яндекс" },
-    { cat: "Главное", name: "MEGA", url: "https://mega.io/", desc: "Облако (50ГБ)" },
-    { cat: "Главное", name: "Dropbox", url: "https://www.dropbox.com/", desc: "Облако" },
-    { cat: "Главное", name: "Twitch", url: "https://www.twitch.tv/", desc: "Стримы" },
-    { cat: "Главное", name: "Kick", url: "https://kick.com/", desc: "Стримы (конкурент Twitch)" },
-    { cat: "Главное", name: "Trovo", url: "https://trovo.live/", desc: "Стримы" },
-    { cat: "Главное", name: "Pinterest", url: "https://www.pinterest.com/", desc: "Идеи и картинки" },
-    { cat: "Главное", name: "Reddit", url: "https://www.reddit.com/", desc: "Форум всего" },
-    { cat: "Главное", name: "Twitter (X)", url: "https://twitter.com/", desc: "Соцсеть" },
-    { cat: "Главное", name: "Instagram", url: "https://www.instagram.com/", desc: "Фото" },
-    { cat: "Главное", name: "TikTok", url: "https://www.tiktok.com/", desc: "Короткие видео" },
-    { cat: "Главное", name: "Rutube", url: "https://rutube.ru/", desc: "Видео РФ" },
-    { cat: "Главное", name: "Dzen", url: "https://dzen.ru/", desc: "Статьи и видео" },
-    { cat: "Главное", name: "Google Maps", url: "https://www.google.com/maps", desc: "Карты" },
-    { cat: "Главное", name: "2GIS", url: "https://2gis.ru/", desc: "Карты городов" },
-    { cat: "Главное", name: "Gismeteo", url: "https://www.gismeteo.ru/", desc: "Погода" },
-    { cat: "Главное", name: "Kinopoisk", url: "https://www.kinopoisk.ru/", desc: "Фильмы" },
-    { cat: "Главное", name: "IMDb", url: "https://www.imdb.com/", desc: "Рейтинг кино" },
-    { cat: "Главное", name: "Netflix", url: "https://www.netflix.com/", desc: "Сериалы" },
-
-    // === УТИЛИТЫ (Инструменты) ===
-    { cat: "Утилиты", name: "Cobalt Tools", url: "https://cobalt.tools/", desc: "Скачать видео без знаков" },
-    { cat: "Утилиты", name: "VirusTotal", url: "https://www.virustotal.com/", desc: "Антивирус онлайн" },
-    { cat: "Утилиты", name: "DeepL", url: "https://www.deepl.com/translator", desc: "Переводчик" },
-    { cat: "Утилиты", name: "Convertio", url: "https://convertio.co/ru/", desc: "Конвертер файлов" },
-    { cat: "Утилиты", name: "TempMail", url: "https://temp-mail.org/", desc: "Временная почта" },
-    { cat: "Утилиты", name: "10 Minute Mail", url: "https://10minutemail.com/", desc: "Почта на 10 мин" },
-    { cat: "Утилиты", name: "SpeedTest", url: "https://www.speedtest.net/", desc: "Скорость инета" },
-    { cat: "Утилиты", name: "Fast.com", url: "https://fast.com/", desc: "Быстрый тест скорости" },
-    { cat: "Утилиты", name: "Check-Host", url: "https://check-host.net/", desc: "Чек IP и пинга" },
-    { cat: "Утилиты", name: "2IP", url: "https://2ip.ru/", desc: "Мой IP" },
-    { cat: "Утилиты", name: "Whoer", url: "https://whoer.net/ru", desc: "Анонимность IP" },
-    { cat: "Утилиты", name: "BrowserLeaks", url: "https://browserleaks.com/", desc: "Утечки браузера" },
-    { cat: "Утилиты", name: "Have I Been Pwned", url: "https://haveibeenpwned.com/", desc: "Слив паролей" },
-    { cat: "Утилиты", name: "Password Gen", url: "https://www.lastpass.com/features/password-generator", desc: "Генератор паролей" },
-    { cat: "Утилиты", name: "Privnote", url: "https://privnote.com/", desc: "Записка самоуничтожается" },
-    { cat: "Утилиты", name: "Pastebin", url: "https://pastebin.com/", desc: "Текст ссылкой" },
-    { cat: "Утилиты", name: "Rentry", url: "https://rentry.co/", desc: "Markdown паста" },
-    { cat: "Утилиты", name: "Archive.org", url: "https://web.archive.org/", desc: "Wayback Machine" },
-    { cat: "Утилиты", name: "TinyURL", url: "https://tinyurl.com/", desc: "Сократить ссылку" },
-    { cat: "Утилиты", name: "Bitly", url: "https://bitly.com/", desc: "Сократить ссылку 2" },
-    { cat: "Утилиты", name: "IP Logger", url: "https://iplogger.org/", desc: "Логгер IP" },
-    { cat: "Утилиты", name: "QR Code Gen", url: "https://ru.qr-code-generator.com/", desc: "Создать QR" },
-    { cat: "Утилиты", name: "PDF I Love", url: "https://www.ilovepdf.com/ru", desc: "Редактор PDF" },
-    { cat: "Утилиты", name: "TinyWow", url: "https://tinywow.com/", desc: "Бесплатные PDF тулзы" },
-    { cat: "Утилиты", name: "Photopea", url: "https://www.photopea.com/", desc: "Photoshop Online" },
-    { cat: "Утилиты", name: "Remove.bg", url: "https://www.remove.bg/", desc: "Удалить фон" },
-    { cat: "Утилиты", name: "Waifu2x", url: "https://waifu2x.udp.jp/", desc: "Улучшить аниме фото" },
-    { cat: "Утилиты", name: "BigJpg", url: "https://bigjpg.com/", desc: "Апскейл фото" },
-    { cat: "Утилиты", name: "Squoosh", url: "https://squoosh.app/", desc: "Сжать картинку (Google)" },
-    { cat: "Утилиты", name: "TinyPNG", url: "https://tinypng.com/", desc: "Сжать PNG" },
-    { cat: "Утилиты", name: "Screenshot Guru", url: "https://screenshot.guru/", desc: "Скрин всего сайта" },
-    { cat: "Утилиты", name: "Ninite", url: "https://ninite.com/", desc: "Авто-установка программ" },
-    { cat: "Утилиты", name: "WinDirStat", url: "https://windirstat.net/", desc: "Анализ диска" },
-    { cat: "Утилиты", name: "Keyboard Test", url: "https://key-test.ru/", desc: "Тест клавиатуры" },
-    { cat: "Утилиты", name: "Mouse Test", url: "https://cps-check.com/ru/mouse-buttons-test", desc: "Тест мыши" },
-    { cat: "Утилиты", name: "Mic Test", url: "https://mictests.com/", desc: "Тест микрофона" },
-    { cat: "Утилиты", name: "Webcam Test", url: "https://webcamtests.com/", desc: "Тест камеры" },
-
-    // === AI / НЕЙРОСЕТИ ===
-    { cat: "AI / Нейро", name: "ChatGPT", url: "https://chat.openai.com/", desc: "OpenAI Чат" },
-    { cat: "AI / Нейро", name: "Google Gemini", url: "https://gemini.google.com/", desc: "Google AI" },
-    { cat: "AI / Нейро", name: "Google AI Studio", url: "https://aistudio.google.com/", desc: "Gemini Pro API" },
-    { cat: "AI / Нейро", name: "Grok", url: "https://grok.x.ai/", desc: "xAI (Musk)" },
-    { cat: "AI / Нейро", name: "Claude AI", url: "https://claude.ai/", desc: "Anthropic AI" },
-    { cat: "AI / Нейро", name: "Perplexity", url: "https://www.perplexity.ai/", desc: "Поисковик фактов" },
-    { cat: "AI / Нейро", name: "Bing Chat", url: "https://www.bing.com/chat", desc: "Microsoft Copilot" },
-    { cat: "AI / Нейро", name: "You.com", url: "https://you.com/", desc: "Поисковик AI" },
-    { cat: "AI / Нейро", name: "Poe", url: "https://poe.com/", desc: "Агрегатор ботов" },
-    { cat: "AI / Нейро", name: "Character.ai", url: "https://beta.character.ai/", desc: "Ролевой чат" },
-    { cat: "AI / Нейро", name: "Midjourney", url: "https://www.midjourney.com/", desc: "Лучшие арты" },
-    { cat: "AI / Нейро", name: "DALL-E 3", url: "https://www.bing.com/images/create", desc: "Арты от Microsoft" },
-    { cat: "AI / Нейро", name: "Leonardo.ai", url: "https://leonardo.ai/", desc: "Арты (альтернатива MJ)" },
-    { cat: "AI / Нейро", name: "Stable Diffusion Web", url: "https://stablediffusionweb.com/", desc: "SD Онлайн" },
-    { cat: "AI / Нейро", name: "Civitai", url: "https://civitai.com/", desc: "Модели для SD" },
-    { cat: "AI / Нейро", name: "Lexica", url: "https://lexica.art/", desc: "Поиск промптов" },
-    { cat: "AI / Нейро", name: "Suno", url: "https://suno.com/", desc: "Песни с вокалом" },
-    { cat: "AI / Нейро", name: "Udio", url: "https://www.udio.com/", desc: "Музыка AI" },
-    { cat: "AI / Нейро", name: "ElevenLabs", url: "https://elevenlabs.io/", desc: "Текст в голос" },
-    { cat: "AI / Нейро", name: "Lovo", url: "https://lovo.ai/", desc: "Озвучка AI" },
-    { cat: "AI / Нейро", name: "VocalRemover", url: "https://vocalremover.org/ru/", desc: "Минусовки" },
-    { cat: "AI / Нейро", name: "Lalal.ai", url: "https://www.lalal.ai/", desc: "Сплиттер звука" },
-    { cat: "AI / Нейро", name: "RunwayML", url: "https://runwayml.com/", desc: "Видео AI" },
-    { cat: "AI / Нейро", name: "Pika Labs", url: "https://pika.art/", desc: "Анимация видео" },
-    { cat: "AI / Нейро", name: "Luma Dream Machine", url: "https://lumalabs.ai/dream-machine", desc: "Видео генератор" },
-    { cat: "AI / Нейро", name: "Hugging Face", url: "https://huggingface.co/", desc: "Хаб моделей" },
-    { cat: "AI / Нейро", name: "Gamma", url: "https://gamma.app/", desc: "Презентации" },
-    { cat: "AI / Нейро", name: "Phind", url: "https://www.phind.com/", desc: "AI для кодеров" },
-    { cat: "AI / Нейро", name: "Blackbox", url: "https://www.blackbox.ai/", desc: "Кодинг AI" },
-
-    // === MINECRAFT ===
-    { cat: "Minecraft", name: "Bisquit Host", url: "https://bisquit.host/", desc: "Твой хостинг" },
-    { cat: "Minecraft", name: "Modrinth", url: "https://modrinth.com/", desc: "Моды (Топ)" },
-    { cat: "Minecraft", name: "CurseForge", url: "https://www.curseforge.com/minecraft", desc: "Моды (Классика)" },
-    { cat: "Minecraft", name: "PlanetMinecraft", url: "https://www.planetminecraft.com/", desc: "Карты и Текстуры" },
-    { cat: "Minecraft", name: "SpigotMC", url: "https://www.spigotmc.org/", desc: "Плагины" },
-    { cat: "Minecraft", name: "PaperMC", url: "https://papermc.io/", desc: "Ядро сервера" },
-    { cat: "Minecraft", name: "Bukkit", url: "https://dev.bukkit.org/", desc: "Старые плагины" },
-    { cat: "Minecraft", name: "NameMC", url: "https://ru.namemc.com/", desc: "Скины и ники" },
-    { cat: "Minecraft", name: "SkinGrabber", url: "https://mcskinsearch.com/", desc: "Поиск скинов" },
-    { cat: "Minecraft", name: "Nova Skin", url: "https://novaskin.me/", desc: "Редактор скинов" },
-    { cat: "Minecraft", name: "Minotar", url: "https://minotar.net/", desc: "API голов" },
-    { cat: "Minecraft", name: "Minecraft Heads", url: "https://minecraft-heads.com/", desc: "Декор головы" },
-    { cat: "Minecraft", name: "ChunkBase", url: "https://www.chunkbase.com/", desc: "Карта биомов" },
-    { cat: "Minecraft", name: "McStacker", url: "https://mcstacker.net/", desc: "Генератор команд" },
-    { cat: "Minecraft", name: "Minecraft Tools", url: "https://minecraft.tools/ru/", desc: "Крафты и книги" },
-    { cat: "Minecraft", name: "GamerGeeks Commands", url: "https://www.gamergeeks.net/apps/minecraft", desc: "Генераторы JSON" },
-    { cat: "Minecraft", name: "VanillaTweaks", url: "https://vanillatweaks.net/", desc: "Датапаки и РП" },
-    { cat: "Minecraft", name: "Crafting Guide", url: "https://www.minecraft-crafting.net/", desc: "Рецепты" },
-    { cat: "Minecraft", name: "Plotz", url: "https://www.plotz.co.uk/", desc: "Строительство сфер" },
-    { cat: "Minecraft", name: "Litematica", url: "https://masa.dy.fi/litematica/", desc: "Схематики" },
-    { cat: "Minecraft", name: "Aternos", url: "https://aternos.org/", desc: "Бесплатный хост" },
-    { cat: "Minecraft", name: "Server.pro", url: "https://server.pro/", desc: "Хостинг" },
-    { cat: "Minecraft", name: "TLauncher", url: "https://tlauncher.org/", desc: "Лаунчер" },
-    { cat: "Minecraft", name: "FabricMC", url: "https://fabricmc.net/", desc: "Загрузчик модов" },
-    { cat: "Minecraft", name: "OptiFine", url: "https://optifine.net/", desc: "Оптимизация" },
-    { cat: "Minecraft", name: "Sodium", url: "https://modrinth.com/mod/sodium", desc: "FPS Буст" },
-    { cat: "Minecraft", name: "Iris Shaders", url: "https://irisshaders.dev/", desc: "Шейдеры" },
-    { cat: "Minecraft", name: "Authlib Injector", url: "https://authlib-injector.yggdrasil.tv/", desc: "Своя авторизация" },
-    { cat: "Minecraft", name: "MC Icons", url: "https://mcicons.ccleaf.com/", desc: "Иконки серверов" },
-    { cat: "Minecraft", name: "RGB Gradient", url: "https://rgb.birdflop.com/", desc: "Градиент чата" },
-    { cat: "Minecraft", name: "Wiki Minecraft", url: "https://minecraft.wiki/", desc: "Википедия" },
-
-    // === ВИЗУАЛ & ДИЗАЙН ===
-    { cat: "Визуал", name: "CoolSymbol", url: "https://coolsymbol.com/", desc: "Символы" },
-    { cat: "Визуал", name: "Unicode Table", url: "https://unicode-table.com/ru/", desc: "Юникод" },
-    { cat: "Визуал", name: "Symbl", url: "https://symbl.cc/ru/", desc: "Эмодзи и знаки" },
-    { cat: "Визуал", name: "Kaomoji", url: "https://kaomoji.ru/", desc: "Японские смайлы" },
-    { cat: "Визуал", name: "ColorHunt", url: "https://colorhunt.co/", desc: "Палитры" },
-    { cat: "Визуал", name: "Coolors", url: "https://coolors.co/", desc: "Генератор цветов" },
-    { cat: "Визуал", name: "Google Fonts", url: "https://fonts.google.com/", desc: "Шрифты" },
-    { cat: "Визуал", name: "DaFont", url: "https://www.dafont.com/", desc: "Скачать шрифты" },
-    { cat: "Визуал", name: "FontAwesome", url: "https://fontawesome.com/icons", desc: "Иконки для сайта" },
-    { cat: "Визуал", name: "Flaticon", url: "https://www.flaticon.com/", desc: "PNG иконки" },
-    { cat: "Визуал", name: "Icons8", url: "https://icons8.com/", desc: "Иконки и фото" },
-    { cat: "Визуал", name: "Unsplash", url: "https://unsplash.com/", desc: "Фото стоки" },
-    { cat: "Визуал", name: "Pexels", url: "https://www.pexels.com/", desc: "Видео стоки" },
-    { cat: "Визуал", name: "Pixabay", url: "https://pixabay.com/", desc: "Бесплатные фото" },
-    { cat: "Визуал", name: "Figma", url: "https://www.figma.com/", desc: "UI Дизайн" },
-    { cat: "Визуал", name: "Canva", url: "https://www.canva.com/", desc: "Простой дизайн" },
-    { cat: "Визуал", name: "Piskel", url: "https://www.piskelapp.com/", desc: "Пиксель арт" },
-    { cat: "Визуал", name: "Lospec", url: "https://lospec.com/", desc: "Палитры пикселей" },
-    { cat: "Визуал", name: "Aseprite", url: "https://www.aseprite.org/", desc: "Софт для пикселей" },
-    { cat: "Визуал", name: "EzGif", url: "https://ezgif.com/", desc: "GIF редактор" },
-    { cat: "Визуал", name: "CSS Gradient", url: "https://cssgradient.io/", desc: "CSS Градиенты" },
-    { cat: "Визуал", name: "Clippy", url: "https://bennettfeely.com/clippy/", desc: "CSS Clip-path" },
-    { cat: "Визуал", name: "GetEmoji", url: "https://getemoji.com/", desc: "Все эмодзи" },
-    { cat: "Визуал", name: "Fluid Sim", url: "https://paveldogreat.github.io/WebGL-Fluid-Simulation/", desc: "Жидкость" },
-    { cat: "Визуал", name: "ZoomQuilt", url: "https://zoomquilt.org/", desc: "Бесконечный зум" },
-    { cat: "Визуал", name: "Weavesilk", url: "http://weavesilk.com/", desc: "Рисование шелком" },
-    { cat: "Визуал", name: "Autodraw", url: "https://www.autodraw.com/", desc: "Google рисовалка" },
-
-    // === ФАН & РАЗВЛЕЧЕНИЯ ===
-    { cat: "Фан", name: "Neal.fun", url: "https://neal.fun/", desc: "Лучшие мини-игры" },
-    { cat: "Фан", name: "Infinite Craft", url: "https://neal.fun/infinite-craft/", desc: "Бесконечный крафт" },
-    { cat: "Фан", name: "The Useless Web", url: "https://theuselessweb.com/", desc: "Бесполезный сайт" },
-    { cat: "Фан", name: "GeoGuessr", url: "https://www.geoguessr.com/", desc: "Угадай место" },
-    { cat: "Фан", name: "CityGuesser", url: "https://virtualvacation.us/guess", desc: "Угадай город (видео)" },
-    { cat: "Фан", name: "Quick Draw", url: "https://quickdraw.withgoogle.com/", desc: "Угадай рисунок" },
-    { cat: "Фан", name: "Akinator", url: "https://ru.akinator.com/", desc: "Джинн" },
-    { cat: "Фан", name: "Little Alchemy 2", url: "https://littlealchemy2.com/", desc: "Алхимия" },
-    { cat: "Фан", name: "Paper.io", url: "https://paper-io.com/", desc: "Захват зоны" },
-    { cat: "Фан", name: "Slither.io", url: "http://slither.io/", desc: "Змейка" },
-    { cat: "Фан", name: "Agar.io", url: "https://agar.io/", desc: "Клетки" },
-    { cat: "Фан", name: "Krunker", url: "https://krunker.io/", desc: "Шутер в браузере" },
-    { cat: "Фан", name: "Slow Roads", url: "https://slowroads.io/", desc: "Вождение онлайн" },
-    { cat: "Фан", name: "Dino Swords", url: "https://dinoswords.gg/", desc: "Динозаврик с оружием" },
-    { cat: "Фан", name: "Pointer Pointer", url: "https://pointerpointer.com/", desc: "Палец на курсор" },
-    { cat: "Фан", name: "Hacker Typer", url: "https://hackertyper.net/", desc: "Ты хакер" },
-    { cat: "Фан", name: "GeekTyper", url: "https://geektyper.com/", desc: "Симулятор взлома" },
-    { cat: "Фан", name: "Windows 93", url: "http://www.windows93.net/", desc: "Windows наркомана" },
-    { cat: "Фан", name: "Staggering Beauty", url: "http://www.staggeringbeauty.com/", desc: "Скример червяк" },
-    { cat: "Фан", name: "Cookie Clicker", url: "https://orteil.dashnet.org/cookieclicker/", desc: "Кликер печенья" },
-    { cat: "Фан", name: "Evol. of Trust", url: "https://ncase.me/trust/", desc: "Эволюция доверия" },
-    { cat: "Фан", name: "Gartic Phone", url: "https://garticphone.com/ru", desc: "Сломанный телефон" },
-    { cat: "Фан", name: "Skribbl.io", url: "https://skribbl.io/", desc: "Рисовалка онлайн" },
-    { cat: "Фан", name: "Jigsaw Explorer", url: "https://www.jigsawexplorer.com/", desc: "Пазлы" },
-    { cat: "Фан", name: "Internet Map", url: "https://internet-map.net/", desc: "Карта интернета" },
-
-    // === КОСМОС & МИР ===
-    { cat: "Космос", name: "NASA Eyes", url: "https://eyes.nasa.gov/", desc: "Глаза NASA" },
-    { cat: "Космос", name: "Stellarium", url: "https://stellarium-web.org/", desc: "Карта звезд" },
-    { cat: "Космос", name: "FlightRadar24", url: "https://www.flightradar24.com/", desc: "Самолеты" },
-    { cat: "Космос", name: "MarineTraffic", url: "https://www.marinetraffic.com/", desc: "Корабли" },
-    { cat: "Космос", name: "ISS Live", url: "https://eol.jsc.nasa.gov/ESRS/HDEV/", desc: "МКС Прямой эфир" },
-    { cat: "Космос", name: "Radio Garden", url: "http://radio.garden/", desc: "Радио глобус" },
-    { cat: "Космос", name: "Drive & Listen", url: "https://driveandlisten.herokuapp.com/", desc: "Поездки по миру" },
-    { cat: "Космос", name: "WindowSwap", url: "https://www.window-swap.com/", desc: "Вид из чужого окна" },
-    { cat: "Космос", name: "Earth Nullschool", url: "https://earth.nullschool.net/", desc: "Карта ветров" },
-    { cat: "Космос", name: "100,000 Stars", url: "https://stars.chromeexperiments.com/", desc: "Галактика 3D" },
-    { cat: "Космос", name: "Solar System", url: "https://www.solarsystemscope.com/", desc: "Солнечная система" },
-    { cat: "Космос", name: "Astronaut.io", url: "https://astronaut.io/", desc: "Случайные видео 0 views" },
-    { cat: "Космос", name: "Google Earth", url: "https://earth.google.com/", desc: "Земля 3D" },
-    { cat: "Космос", name: "WikiMapia", url: "https://wikimapia.org/", desc: "Народная карта" },
-    { cat: "Космос", name: "Lightning Maps", url: "https://www.lightningmaps.org/", desc: "Грозы онлайн" },
-    { cat: "Космос", name: "Submarine Cable", url: "https://www.submarinecablemap.com/", desc: "Интернет кабели океана" },
-    { cat: "Космос", name: "Deep Sea", url: "https://neal.fun/deep-sea/", desc: "Глубины океана" },
-    { cat: "Космос", name: "Scale of Universe", url: "https://scaleofuniverse.com/", desc: "Масштаб вселенной" },
-    { cat: "Космос", name: "Population.io", url: "https://population.io/", desc: "Население мира" },
-    { cat: "Космос", name: "Worldometer", url: "https://www.worldometers.info/", desc: "Статистика мира" },
-
-    // === IT / КОДИНГ ===
-    { cat: "IT / Код", name: "GitHub", url: "https://github.com/", desc: "Репозитории" },
-    { cat: "IT / Код", name: "StackOverflow", url: "https://stackoverflow.com/", desc: "Вопросы" },
-    { cat: "IT / Код", name: "Roadmap.sh", url: "https://roadmap.sh/", desc: "Карта развития" },
-    { cat: "IT / Код", name: "Replit", url: "https://replit.com/", desc: "IDE Онлайн" },
-    { cat: "IT / Код", name: "CodePen", url: "https://codepen.io/", desc: "HTML/CSS песочница" },
-    { cat: "IT / Код", name: "JSFiddle", url: "https://jsfiddle.net/", desc: "JS песочница" },
-    { cat: "IT / Код", name: "Carbon", url: "https://carbon.now.sh/", desc: "Скрины кода" },
-    { cat: "IT / Код", name: "RegExr", url: "https://regexr.com/", desc: "Регулярки" },
-    { cat: "IT / Код", name: "JSON Lint", url: "https://jsonlint.com/", desc: "JSON Валидатор" },
-    { cat: "IT / Код", name: "DevDocs", url: "https://devdocs.io/", desc: "Документация" },
-    { cat: "IT / Код", name: "MDN Web Docs", url: "https://developer.mozilla.org/", desc: "Учебник Web" },
-    { cat: "IT / Код", name: "W3Schools", url: "https://www.w3schools.com/", desc: "Уроки кода" },
-    { cat: "IT / Код", name: "LeetCode", url: "https://leetcode.com/", desc: "Задачи" },
-    { cat: "IT / Код", name: "CodeWars", url: "https://www.codewars.com/", desc: "Задачи (Ката)" },
-    { cat: "IT / Код", name: "HackerRank", url: "https://www.hackerrank.com/", desc: "Тесты" },
-    { cat: "IT / Код", name: "Cloudflare", url: "https://www.cloudflare.com/", desc: "CDN и DNS" },
-    { cat: "IT / Код", name: "DigitalOcean", url: "https://www.digitalocean.com/", desc: "VPS Хостинг" },
-    { cat: "IT / Код", name: "Vercel", url: "https://vercel.com/", desc: "Хостинг сайтов" },
-    { cat: "IT / Код", name: "Netlify", url: "https://www.netlify.com/", desc: "Хостинг сайтов" },
-    { cat: "IT / Код", name: "Can I Use", url: "https://caniuse.com/", desc: "Поддержка браузеров" },
-    { cat: "IT / Код", name: "NPM", url: "https://www.npmjs.com/", desc: "Пакеты JS" },
-    { cat: "IT / Код", name: "PyPI", url: "https://pypi.org/", desc: "Пакеты Python" },
-    { cat: "IT / Код", name: "Docker Hub", url: "https://hub.docker.com/", desc: "Контейнеры" },
-    { cat: "IT / Код", name: "GitLab", url: "https://about.gitlab.com/", desc: "Git альтернатива" },
-
-    // === АУДИО ===
-    { cat: "Аудио", name: "Яндекс Музыка", url: "https://music.yandex.ru/", desc: "Плеер" },
-    { cat: "Аудио", name: "Spotify", url: "https://open.spotify.com/", desc: "Стриминг" },
-    { cat: "Аудио", name: "SoundCloud", url: "https://soundcloud.com/", desc: "Инди музыка" },
-    { cat: "Аудио", name: "Incredibox", url: "https://www.incredibox.com/", desc: "Битбоксер" },
-    { cat: "Аудио", name: "MyInstants", url: "https://www.myinstants.com/", desc: "Мемные звуки" },
-    { cat: "Аудио", name: "Rainyscope", url: "https://rainyscope.com/", desc: "Шум дождя" },
-    { cat: "Аудио", name: "Noisli", url: "https://www.noisli.com/", desc: "Фоновые звуки" },
-    { cat: "Аудио", name: "Lofi Girl", url: "https://lofigirl.com/", desc: "Lofi радио" },
-    { cat: "Аудио", name: "Every Noise", url: "https://everynoise.com/", desc: "Жанры музыки" },
-    { cat: "Аудио", name: "Blob Opera", url: "https://artsandculture.google.com/experiment/blob-opera/", desc: "Опера" },
-    { cat: "Аудио", name: "Pink Trombone", url: "https://dood.al/pinktrombone/", desc: "Голос (Рот)" },
-    { cat: "Аудио", name: "BeepBox", url: "https://beepbox.co/", desc: "Чиптюн мейкер" },
-    { cat: "Аудио", name: "Online Sequencer", url: "https://onlinesequencer.net/", desc: "Пианино онлайн" },
-    { cat: "Аудио", name: "Radio Garden", url: "http://radio.garden/", desc: "Радио" },
-    { cat: "Аудио", name: "Shazam Web", url: "https://www.shazam.com/ru", desc: "Угадать песню" },
-
-    // === МАГАЗИНЫ & КЛЮЧИ ===
-    { cat: "Магазины", name: "Steam", url: "https://store.steampowered.com/", desc: "Игры" },
-    { cat: "Магазины", name: "Epic Games", url: "https://store.epicgames.com/", desc: "Халява" },
-    { cat: "Магазины", name: "GOG", url: "https://www.gog.com/", desc: "Игры без DRM" },
-    { cat: "Магазины", name: "Itch.io", url: "https://itch.io/", desc: "Инди игры" },
-    { cat: "Магазины", name: "SteamDB", url: "https://steamdb.info/", desc: "Цены Steam" },
-    { cat: "Магазины", name: "FunPay", url: "https://funpay.com/", desc: "Биржа РМТ" },
-    { cat: "Магазины", name: "Plati Market", url: "https://plati.market/", desc: "Ключи" },
-    { cat: "Магазины", name: "GGSel", url: "https://ggsel.net/", desc: "Маркет ключей" },
-    { cat: "Магазины", name: "Kupikod", url: "https://kupikod.com/", desc: "Пополнение Steam" },
-    { cat: "Магазины", name: "Pepper", url: "https://www.pepper.ru/", desc: "Скидки" },
-    { cat: "Магазины", name: "DNS", url: "https://www.dns-shop.ru/", desc: "Техника" },
-    { cat: "Магазины", name: "Ozon", url: "https://www.ozon.ru/", desc: "Маркетплейс" },
-    { cat: "Магазины", name: "Wildberries", url: "https://www.wildberries.ru/", desc: "Маркетплейс" },
-    { cat: "Магазины", name: "AliExpress", url: "https://aliexpress.ru/", desc: "Китай" },
-    { cat: "Магазины", name: "Avito", url: "https://www.avito.ru/", desc: "Объявления" },
-
-    // === УЧЕБА & НАУКА ===
-    { cat: "Учеба", name: "Фоксфорд", url: "https://foxford.ru/", desc: "Школа" },
-    { cat: "Учеба", name: "Википедия", url: "https://ru.wikipedia.org/", desc: "База знаний" },
-    { cat: "Учеба", name: "WolframAlpha", url: "https://www.wolframalpha.com/", desc: "Математика" },
-    { cat: "Учеба", name: "Desmos", url: "https://www.desmos.com/", desc: "Графики" },
-    { cat: "Учеба", name: "Symbolab", url: "https://www.symbolab.com/", desc: "Решебник" },
-    { cat: "Учеба", name: "Duolingo", url: "https://www.duolingo.com/", desc: "Языки" },
-    { cat: "Учеба", name: "Reverso", url: "https://context.reverso.net/", desc: "Контекст перевода" },
-    { cat: "Учеба", name: "Google Scholar", url: "https://scholar.google.ru/", desc: "Статьи" },
-    { cat: "Учеба", name: "Z-Library", url: "https://z-lib.io/", desc: "Книги" },
-    { cat: "Учеба", name: "Sci-Hub", url: "https://sci-hub.se/", desc: "Наука бесплатно" },
-    { cat: "Учеба", name: "Stepik", url: "https://stepik.org/", desc: "Курсы" },
-    { cat: "Учеба", name: "Coursera", url: "https://www.coursera.org/", desc: "Курсы ВУЗов" },
-    { cat: "Учеба", name: "Khan Academy", url: "https://ru.khanacademy.org/", desc: "Обучение" },
-    { cat: "Учеба", name: "Brainly", url: "https://znanija.com/", desc: "Ответы ДЗ" },
-    { cat: "Учеба", name: "Gdz.ru", url: "https://gdz.ru/", desc: "ГДЗ" },
-    { cat: "Учеба", name: "MuscleWiki", url: "https://musclewiki.com/", desc: "Анатомия спорта" },
-    { cat: "Учеба", name: "Periodic Table", url: "https://ptable.com/", desc: "Таблица Менделеева" }
-];
-
-// === ЛОГИКА ===
-let currentCategory = "Избранное";
-let favorites = JSON.parse(localStorage.getItem('vesperiaFavs')) || [];
-
-// Магия раскладки (ghbdtn -> привет)
-function fixKeyboardLayout(text) {
-    const replacer = {
-        "q":"й", "w":"ц", "e":"у", "r":"к", "t":"е", "y":"н", "u":"г", 
-        "i":"ш", "o":"щ", "p":"з", "[":"х", "]":"ъ", "a":"ф", "s":"ы", 
-        "d":"в", "f":"а", "g":"п", "h":"р", "j":"о", "k":"л", "l":"д", 
-        ";":"ж", "'":"э", "z":"я", "x":"ч", "c":"с", "v":"м", "b":"и", 
-        "n":"т", "m":"ь", ",":"б", ".":"ю", "/":"."
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // === ИКОНКИ КАТЕГОРИЙ ===
+    const categoryIcons = {
+        "Избранное": "fa-solid fa-star",
+        "Главное": "fa-solid fa-house",
+        "Утилиты": "fa-solid fa-toolbox",
+        "AI / Нейро": "fa-solid fa-robot",
+        "Minecraft": "fa-solid fa-cube",
+        "Визуал": "fa-solid fa-palette",
+        "Фан": "fa-solid fa-gamepad",
+        "Космос": "fa-solid fa-user-astronaut",
+        "Аудио": "fa-solid fa-headphones",
+        "Наука": "fa-solid fa-atom",
+        "IT / Код": "fa-solid fa-terminal",
+        "Магазины": "fa-solid fa-cart-shopping",
+        "Учеба": "fa-solid fa-book-open"
     };
-    return text.toLowerCase().split('').map(char => replacer[char] || char).join('');
-}
 
-function init() {
+    // === БАЗА ДАННЫХ ===
+    // Я добавил русские названия в описания (desc), чтобы поиск их находил!
+    const db = [
+        // === ГЛАВНОЕ ===
+        { cat: "Главное", name: "Bisquit Host", url: "https://bisquit.host/", desc: "Хостинг серверов (бисквит)" },
+        { cat: "Главное", name: "Telegram Web", url: "https://web.telegram.org/", desc: "Телеграм (тг, telegram)" },
+        { cat: "Главное", name: "Discord", url: "https://discord.com/login", desc: "Дискорд (дс, discord)" },
+        { cat: "Главное", name: "YouTube", url: "https://www.youtube.com/", desc: "Ютуб видео (youtube)" },
+        { cat: "Главное", name: "VK", url: "https://vk.com/", desc: "ВКонтакте (вк)" },
+        { cat: "Главное", name: "Gmail", url: "https://mail.google.com/", desc: "Почта Гугл (google)" },
+        { cat: "Главное", name: "Twitch", url: "https://www.twitch.tv/", desc: "Твич стримы (twitch)" },
+        { cat: "Главное", name: "Яндекс Почта", url: "https://mail.yandex.ru/", desc: "Почта Яндекс" },
+        { cat: "Главное", name: "Google Drive", url: "https://drive.google.com/", desc: "Гугл Диск" },
+        { cat: "Главное", name: "Яндекс Диск", url: "https://disk.yandex.ru/", desc: "Облако Яндекс" },
+        { cat: "Главное", name: "Pinterest", url: "https://www.pinterest.com/", desc: "Пинтерест (картинки)" },
+        { cat: "Главное", name: "TikTok", url: "https://www.tiktok.com/", desc: "ТикТок (tiktok)" },
+        { cat: "Главное", name: "Rutube", url: "https://rutube.ru/", desc: "Рутуб видео" },
+        { cat: "Главное", name: "Dzen", url: "https://dzen.ru/", desc: "Дзен (Яндекс)" },
+        { cat: "Главное", name: "Kinopoisk", url: "https://www.kinopoisk.ru/", desc: "Кинопоиск (фильмы)" },
+        { cat: "Главное", name: "Google Maps", url: "https://www.google.com/maps", desc: "Гугл Карты" },
+        { cat: "Главное", name: "2GIS", url: "https://2gis.ru/", desc: "2ГИС Карты" },
+
+        // === УТИЛИТЫ ===
+        { cat: "Утилиты", name: "Cobalt Tools", url: "https://cobalt.tools/", desc: "Скачать видео без водяных знаков" },
+        { cat: "Утилиты", name: "VirusTotal", url: "https://www.virustotal.com/", desc: "ВирусТотал (проверка на вирусы)" },
+        { cat: "Утилиты", name: "DeepL", url: "https://www.deepl.com/translator", desc: "Переводчик (лучше гугла)" },
+        { cat: "Утилиты", name: "Convertio", url: "https://convertio.co/ru/", desc: "Конвертер файлов (любой формат)" },
+        { cat: "Утилиты", name: "TempMail", url: "https://temp-mail.org/", desc: "Временная почта" },
+        { cat: "Утилиты", name: "SpeedTest", url: "https://www.speedtest.net/", desc: "Спидтест (скорость интернета)" },
+        { cat: "Утилиты", name: "Check-Host", url: "https://check-host.net/", desc: "Чек Хост (IP и пинг)" },
+        { cat: "Утилиты", name: "Remove.bg", url: "https://www.remove.bg/", desc: "Удалить фон с фото" },
+        { cat: "Утилиты", name: "Photopea", url: "https://www.photopea.com/", desc: "Фотошоп онлайн (photoshop)" },
+        { cat: "Утилиты", name: "Waifu2x", url: "https://waifu2x.udp.jp/", desc: "Улучшить качество фото (апскейл)" },
+        { cat: "Утилиты", name: "TinyPNG", url: "https://tinypng.com/", desc: "Сжать фото (уменьшить вес)" },
+        { cat: "Утилиты", name: "Screenshot Guru", url: "https://screenshot.guru/", desc: "Скриншот сайта целиком" },
+        { cat: "Утилиты", name: "Privnote", url: "https://privnote.com/", desc: "Записка сгорает после прочтения" },
+        { cat: "Утилиты", name: "Pastebin", url: "https://pastebin.com/", desc: "Пастбин (код текстом)" },
+        { cat: "Утилиты", name: "IP Logger", url: "https://iplogger.org/", desc: "Айпи логгер (сокращение ссылок)" },
+        { cat: "Утилиты", name: "Archive.org", url: "https://web.archive.org/", desc: "Архив интернета (wayback machine)" },
+
+        // === AI / НЕЙРОСЕТИ ===
+        { cat: "AI / Нейро", name: "ChatGPT", url: "https://chat.openai.com/", desc: "Чат ГПТ (OpenAI)" },
+        { cat: "AI / Нейро", name: "Google Gemini", url: "https://gemini.google.com/", desc: "Гугл Джемини (AI)" },
+        { cat: "AI / Нейро", name: "Midjourney", url: "https://www.midjourney.com/", desc: "Миджорни (генерация картинок)" },
+        { cat: "AI / Нейро", name: "Suno", url: "https://suno.com/", desc: "Суно (создание музыки)" },
+        { cat: "AI / Нейро", name: "Grok", url: "https://grok.x.ai/", desc: "Грок (ИИ Илона Маска)" },
+        { cat: "AI / Нейро", name: "Claude AI", url: "https://claude.ai/", desc: "Клод (умный чат)" },
+        { cat: "AI / Нейро", name: "Character.ai", url: "https://beta.character.ai/", desc: "Общение с персонажами" },
+        { cat: "AI / Нейро", name: "VocalRemover", url: "https://vocalremover.org/ru/", desc: "Удалить голос из песни (минус)" },
+        { cat: "AI / Нейро", name: "ElevenLabs", url: "https://elevenlabs.io/", desc: "Озвучка текста голосом" },
+        { cat: "AI / Нейро", name: "Luma Dream Machine", url: "https://lumalabs.ai/dream-machine", desc: "Создание видео из текста" },
+
+        // === MINECRAFT ===
+        { cat: "Minecraft", name: "Modrinth", url: "https://modrinth.com/", desc: "Модринт (скачать моды)" },
+        { cat: "Minecraft", name: "CurseForge", url: "https://www.curseforge.com/minecraft", desc: "Курсфордж (база модов)" },
+        { cat: "Minecraft", name: "NameMC", url: "https://ru.namemc.com/", desc: "НеймМС (скины и ники)" },
+        { cat: "Minecraft", name: "PlanetMinecraft", url: "https://www.planetminecraft.com/", desc: "Планета Майнкрафт (карты)" },
+        { cat: "Minecraft", name: "ChunkBase", url: "https://www.chunkbase.com/", desc: "Чанкбейс (поиск биомов/сиды)" },
+        { cat: "Minecraft", name: "Minecraft Heads", url: "https://minecraft-heads.com/", desc: "Головы для декора" },
+        { cat: "Minecraft", name: "Minecraft Tools", url: "https://minecraft.tools/ru/", desc: "Генераторы крафтов" },
+        { cat: "Minecraft", name: "MapMaking Tools", url: "https://mcstacker.net/", desc: "Генератор команд (summon)" },
+        { cat: "Minecraft", name: "SpigotMC", url: "https://www.spigotmc.org/", desc: "Спигот (плагины)" },
+        { cat: "Minecraft", name: "Nova Skin", url: "https://novaskin.me/", desc: "Нова Скин (редактор)" },
+        { cat: "Minecraft", name: "Aternos", url: "https://aternos.org/", desc: "Атернос (бесплатный хост)" },
+        { cat: "Minecraft", name: "VanillaTweaks", url: "https://vanillatweaks.net/", desc: "Ванилла Твикс (ресурспаки)" },
+        { cat: "Minecraft", name: "Litematica", url: "https://masa.dy.fi/litematica/", desc: "Лайтематика (схемы)" },
+
+        // === ВИЗУАЛ ===
+        { cat: "Визуал", name: "CoolSymbol", url: "https://coolsymbol.com/", desc: "Кул Символ (значки и шрифты)" },
+        { cat: "Визуал", name: "Unicode Table", url: "https://unicode-table.com/ru/", desc: "Таблица Юникода" },
+        { cat: "Визуал", name: "Kaomoji", url: "https://kaomoji.ru/", desc: "Каомодзи (японские смайлы)" },
+        { cat: "Визуал", name: "ColorHunt", url: "https://colorhunt.co/", desc: "Палитры цветов" },
+        { cat: "Визуал", name: "Google Fonts", url: "https://fonts.google.com/", desc: "Гугл Шрифты" },
+        { cat: "Визуал", name: "Piskel", url: "https://www.piskelapp.com/", desc: "Пискел (рисовать спрайты)" },
+        { cat: "Визуал", name: "EzGif", url: "https://ezgif.com/", desc: "GIF редактор" },
+        { cat: "Визуал", name: "Figma", url: "https://www.figma.com/", desc: "Фигма (дизайн интерфейсов)" },
+
+        // === ФАН & РАЗВЛЕЧЕНИЯ ===
+        { cat: "Фан", name: "Neal.fun", url: "https://neal.fun/", desc: "Нил Фан (мини игры)" },
+        { cat: "Фан", name: "GeoGuessr", url: "https://www.geoguessr.com/", desc: "Геогессер (угадай страну)" },
+        { cat: "Фан", name: "Akinator", url: "https://ru.akinator.com/", desc: "Акинатор (джинн)" },
+        { cat: "Фан", name: "The Useless Web", url: "https://theuselessweb.com/", desc: "Бесполезный сайт" },
+        { cat: "Фан", name: "Quick Draw", url: "https://quickdraw.withgoogle.com/", desc: "Угадай рисунок" },
+        { cat: "Фан", name: "Little Alchemy 2", url: "https://littlealchemy2.com/", desc: "Алхимия 2" },
+        { cat: "Фан", name: "Hacker Typer", url: "https://hackertyper.net/", desc: "Симулятор хакера" },
+        { cat: "Фан", name: "Pointer Pointer", url: "https://pointerpointer.com/", desc: "Палец на курсор" },
+
+        // === КОСМОС ===
+        { cat: "Космос", name: "FlightRadar24", url: "https://www.flightradar24.com/", desc: "ФлайтРадар (самолеты)" },
+        { cat: "Космос", name: "Stellarium", url: "https://stellarium-web.org/", desc: "Карта звездного неба" },
+        { cat: "Космос", name: "Radio Garden", url: "http://radio.garden/", desc: "Радио Гарден (глобус)" },
+        { cat: "Космос", name: "Drive & Listen", url: "https://driveandlisten.herokuapp.com/", desc: "Поездка по городам" },
+        { cat: "Космос", name: "ISS Live", url: "https://eol.jsc.nasa.gov/ESRS/HDEV/", desc: "МКС Прямой эфир" },
+
+        // === IT / КОД ===
+        { cat: "IT / Код", name: "GitHub", url: "https://github.com/", desc: "Гитхаб (код)" },
+        { cat: "IT / Код", name: "StackOverflow", url: "https://stackoverflow.com/", desc: "СтекОверфлоу (вопросы)" },
+        { cat: "IT / Код", name: "Replit", url: "https://replit.com/", desc: "Реплит (IDE онлайн)" },
+        { cat: "IT / Код", name: "Roadmap.sh", url: "https://roadmap.sh/", desc: "Карта развития программиста" },
+        { cat: "IT / Код", name: "Carbon", url: "https://carbon.now.sh/", desc: "Красивый скриншот кода" },
+        { cat: "IT / Код", name: "RegExr", url: "https://regexr.com/", desc: "Регулярные выражения" },
+
+        // === АУДИО ===
+        { cat: "Аудио", name: "Яндекс Музыка", url: "https://music.yandex.ru/", desc: "Яндекс Плеер" },
+        { cat: "Аудио", name: "Spotify", url: "https://open.spotify.com/", desc: "Спотифай" },
+        { cat: "Аудио", name: "MyInstants", url: "https://www.myinstants.com/", desc: "Звуки мемов" },
+        { cat: "Аудио", name: "Incredibox", url: "https://www.incredibox.com/", desc: "Битбокс игра" },
+        { cat: "Аудио", name: "Rainyscope", url: "https://rainyscope.com/", desc: "Звуки дождя" },
+
+        // === МАГАЗИНЫ ===
+        { cat: "Магазины", name: "Steam", url: "https://store.steampowered.com/", desc: "Стим (игры)" },
+        { cat: "Магазины", name: "SteamDB", url: "https://steamdb.info/", desc: "База Стим (цены)" },
+        { cat: "Магазины", name: "FunPay", url: "https://funpay.com/", desc: "Фанпей (биржа)" },
+        { cat: "Магазины", name: "Plati Market", url: "https://plati.market/", desc: "Плати Маркет (ключи)" },
+        { cat: "Магазины", name: "Pepper", url: "https://www.pepper.ru/", desc: "Пеппер (скидки)" },
+        { cat: "Магазины", name: "DNS", url: "https://www.dns-shop.ru/", desc: "ДНС (техника)" },
+        { cat: "Магазины", name: "Wildberries", url: "https://www.wildberries.ru/", desc: "Вайлдберриз" },
+        { cat: "Магазины", name: "Ozon", url: "https://www.ozon.ru/", desc: "Озон" },
+
+        // === УЧЕБА ===
+        { cat: "Учеба", name: "Фоксфорд", url: "https://foxford.ru/", desc: "Школа Фоксфорд" },
+        { cat: "Учеба", name: "Википедия", url: "https://ru.wikipedia.org/", desc: "Википедия" },
+        { cat: "Учеба", name: "WolframAlpha", url: "https://www.wolframalpha.com/", desc: "Вольфрам (решение задач)" },
+        { cat: "Учеба", name: "Gdz.ru", url: "https://gdz.ru/", desc: "ГДЗ (решебники)" },
+        { cat: "Учеба", name: "Stepik", url: "https://stepik.org/", desc: "Степик (курсы)" },
+        { cat: "Учеба", name: "Duolingo", url: "https://www.duolingo.com/", desc: "Дуолинго (языки)" }
+    ];
+
+    // === ЛОГИКА ===
+    let currentCategory = "Избранное";
+    let favorites = JSON.parse(localStorage.getItem('vesperiaFavs')) || [];
+
+    // 1. Исправление раскладки (ghbdtn -> привет)
+    function fixKeyboardLayout(text) {
+        const replacer = {
+            "q":"й", "w":"ц", "e":"у", "r":"к", "t":"е", "y":"н", "u":"г", 
+            "i":"ш", "o":"щ", "p":"з", "[":"х", "]":"ъ", "a":"ф", "s":"ы", 
+            "d":"в", "f":"а", "g":"п", "h":"р", "j":"о", "k":"л", "l":"д", 
+            ";":"ж", "'":"э", "z":"я", "x":"ч", "c":"с", "v":"м", "b":"и", 
+            "n":"т", "m":"ь", ",":"б", ".":"ю", "/":"."
+        };
+        return text.toLowerCase().split('').map(char => replacer[char] || char).join('');
+    }
+
+    // 2. Рендер вкладок
+    function renderTabs() {
+        const nav = document.getElementById('tabs-nav');
+        if (!nav) return; // Защита от ошибки
+        nav.innerHTML = "";
+        
+        const categories = ["Избранное", ...new Set(db.map(item => item.cat))];
+
+        categories.forEach(cat => {
+            const btn = document.createElement('button');
+            btn.className = `tab-btn ${cat === currentCategory ? 'active' : ''}`;
+            const iconClass = categoryIcons[cat] || "fa-solid fa-folder";
+            btn.innerHTML = `<i class="${iconClass}"></i> ${cat}`;
+            
+            btn.onclick = () => {
+                currentCategory = cat;
+                const searchInput = document.getElementById('search');
+                if (searchInput) searchInput.value = "";
+                renderTabs();
+                renderSites();
+            };
+            nav.appendChild(btn);
+        });
+    }
+
+    // 3. Рендер сайтов
+    function renderSites(searchQuery = "") {
+        const container = document.getElementById('content');
+        if (!container) return; // Защита от ошибки
+        
+        container.innerHTML = "";
+        let sitesToShow = [];
+        const lowerQuery = searchQuery.toLowerCase();
+        const fixedQuery = fixKeyboardLayout(lowerQuery);
+
+        if (searchQuery.trim() !== "") {
+            // Ищем по имени, описанию и исправленной раскладке
+            sitesToShow = db.filter(site => 
+                site.name.toLowerCase().includes(lowerQuery) || 
+                site.desc.toLowerCase().includes(lowerQuery) ||
+                site.name.toLowerCase().includes(fixedQuery) ||
+                site.desc.toLowerCase().includes(fixedQuery)
+            );
+        } else if (currentCategory === "Избранное") {
+            sitesToShow = db.filter(site => favorites.includes(site.url));
+            if (sitesToShow.length === 0) {
+                container.innerHTML = `
+                    <div style='text-align:center; padding: 60px; color:#888; width: 100%;'>
+                        <i class="fa-regular fa-star" style="font-size: 4rem; margin-bottom: 20px; opacity: 0.3;"></i>
+                        <h2>Избранное пусто</h2>
+                        <p>Нажми на звездочку на карточке, чтобы добавить.</p>
+                    </div>`;
+                return;
+            }
+        } else {
+            sitesToShow = db.filter(site => site.cat === currentCategory);
+        }
+
+        const grid = document.createElement('div');
+        grid.className = 'grid';
+
+        sitesToShow.forEach(site => {
+            const isFav = favorites.includes(site.url);
+            const card = document.createElement('a');
+            card.className = 'card';
+            card.href = site.url;
+            card.target = "_blank";
+            
+            const iconUrl = `https://www.google.com/s2/favicons?domain=${new URL(site.url).hostname}&sz=64`;
+
+            card.innerHTML = `
+                <div class="card-content">
+                    <img src="${iconUrl}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1006/1006771.png'">
+                    <div class="card-text">
+                        <span class="card-title">${site.name}</span>
+                        <span class="card-desc">${site.desc}</span>
+                    </div>
+                </div>
+                <button class="fav-btn ${isFav ? 'active' : ''}">
+                    <i class="fa-${isFav ? 'solid' : 'regular'} fa-star"></i>
+                </button>
+            `;
+            
+            // Обработчик лайка
+            const favBtn = card.querySelector('.fav-btn');
+            favBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleFavorite(site.url);
+            });
+
+            grid.appendChild(card);
+        });
+
+        container.appendChild(grid);
+    }
+
+    // 4. Логика избранного
+    function toggleFavorite(url) {
+        if (favorites.includes(url)) {
+            favorites = favorites.filter(f => f !== url);
+        } else {
+            favorites.push(url);
+        }
+        localStorage.setItem('vesperiaFavs', JSON.stringify(favorites));
+        
+        // Перерисовываем
+        const searchInput = document.getElementById('search');
+        renderSites(searchInput ? searchInput.value : "");
+    }
+
+    // 5. Поиск
+    const searchInput = document.getElementById('search');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            renderSites(e.target.value);
+        });
+    }
+
+    // ЗАПУСК
     renderTabs();
     renderSites();
-}
 
-function renderTabs() {
-    const nav = document.getElementById('tabs-nav');
-    nav.innerHTML = "";
-    const categories = ["Избранное", ...new Set(db.map(item => item.cat))];
-
-    categories.forEach(cat => {
-        const btn = document.createElement('button');
-        btn.className = `tab-btn ${cat === currentCategory ? 'active' : ''}`;
-        const iconClass = categoryIcons[cat] || "fa-solid fa-folder";
-        btn.innerHTML = `<i class="${iconClass}"></i> ${cat}`;
-        
-        btn.onclick = () => {
-            currentCategory = cat;
-            document.getElementById('search').value = "";
-            renderTabs();
-            renderSites();
-        };
-        nav.appendChild(btn);
-    });
-}
-
-function renderSites(searchQuery = "") {
-    const container = document.getElementById('content');
-    container.innerHTML = "";
-    let sitesToShow = [];
-    const lowerQuery = searchQuery.toLowerCase();
-    const fixedQuery = fixKeyboardLayout(lowerQuery);
-
-    if (searchQuery.trim() !== "") {
-        sitesToShow = db.filter(site => 
-            site.name.toLowerCase().includes(lowerQuery) || 
-            site.desc.toLowerCase().includes(lowerQuery) ||
-            site.name.toLowerCase().includes(fixedQuery) ||
-            site.desc.toLowerCase().includes(fixedQuery)
-        );
-    } else if (currentCategory === "Избранное") {
-        sitesToShow = db.filter(site => favorites.includes(site.url));
-        if (sitesToShow.length === 0) {
-            container.innerHTML = `
-                <div style='text-align:center; padding: 60px; color:#888; width: 100%;'>
-                    <i class="fa-regular fa-star" style="font-size: 4rem; margin-bottom: 20px; opacity: 0.3;"></i>
-                    <h2>Избранное пусто</h2>
-                    <p>Нажми на звездочку на любой карточке, чтобы сохранить сайт.</p>
-                </div>`;
-            return;
-        }
-    } else {
-        sitesToShow = db.filter(site => site.cat === currentCategory);
-    }
-
-    const grid = document.createElement('div');
-    grid.className = 'grid';
-
-    sitesToShow.forEach(site => {
-        const isFav = favorites.includes(site.url);
-        const card = document.createElement('a');
-        card.className = 'card';
-        card.href = site.url;
-        card.target = "_blank";
-        
-        const iconUrl = `https://www.google.com/s2/favicons?domain=${new URL(site.url).hostname}&sz=64`;
-
-        card.innerHTML = `
-            <div class="card-content">
-                <img src="${iconUrl}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1006/1006771.png'">
-                <div class="card-text">
-                    <span class="card-title">${site.name}</span>
-                    <span class="card-desc">${site.desc}</span>
-                </div>
-            </div>
-            <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleFavorite(event, '${site.url}')">
-                <i class="fa-${isFav ? 'solid' : 'regular'} fa-star"></i>
-            </button>
-        `;
-        grid.appendChild(card);
-    });
-
-    container.appendChild(grid);
-}
-
-window.toggleFavorite = function(event, url) {
-    event.preventDefault(); // Чтобы не открывался сайт при клике на звезду
-    if (favorites.includes(url)) {
-        favorites = favorites.filter(f => f !== url);
-    } else {
-        favorites.push(url);
-    }
-    localStorage.setItem('vesperiaFavs', JSON.stringify(favorites));
-    renderSites(document.getElementById('search').value);
-}
-
-document.getElementById('search').addEventListener('input', (e) => {
-    renderSites(e.target.value);
-});
-
-init();
+}); // Конец DOMContentLoaded
