@@ -2,11 +2,11 @@
     --bg-deep: #050508; 
     --bg-center: #120b29;
     
-    --card-bg: rgba(20, 15, 35, 0.7);
+    --card-bg: rgba(25, 20, 40, 0.7);
     --card-hover: rgba(138, 43, 226, 0.3);
     --accent: #9d00ff;
     --accent-glow: #bd6eff;
-    --star-color: #ffffff;
+    --star-color: #ffd700;
     --text-main: #ffffff;
     --text-sec: #b0b0c5;
 }
@@ -14,7 +14,7 @@
 body {
     background: radial-gradient(circle at 50% 40%, var(--bg-center) 0%, var(--bg-deep) 80%);
     color: var(--text-main);
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     min-height: 100vh;
     overflow-x: hidden;
@@ -40,15 +40,15 @@ header {
     padding: 50px 0 30px;
 }
 
-/* Логотип Vesperia */
+/* Логотип */
 .pixel-logo {
     font-family: 'Russo One', sans-serif;
-    font-size: 3.8rem;
+    font-size: 3.5rem;
     margin: 0;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     color: #ffffff;
     text-transform: uppercase;
-    text-shadow: 3px 3px 0px #000000;
+    text-shadow: 4px 4px 0px #000000;
 }
 
 .pixel-logo .purple-text {
@@ -86,7 +86,7 @@ header {
 
 .search-box:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 20px rgba(157, 0, 255, 0.25);
+    box-shadow: 0 0 20px rgba(157, 0, 255, 0.3);
 }
 
 /* Табы */
@@ -110,7 +110,7 @@ header {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .tab-btn.active, .tab-btn:hover {
@@ -123,16 +123,16 @@ header {
 /* Сетка */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 15px;
     animation: fadeIn 0.4s ease;
 }
 
 @media (max-width: 600px) {
     .grid {
-        grid-template-columns: repeat(1, 1fr); /* 1 колонка для удобства на телефоне */
+        grid-template-columns: repeat(1, 1fr); /* 1 колонка на телефоне */
     }
-    .pixel-logo { font-size: 2.5rem; }
+    .pixel-logo { font-size: 2.2rem; }
 }
 
 .card {
@@ -192,13 +192,17 @@ header {
 }
 
 .fav-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
     background: none;
     border: none;
     color: rgba(255,255,255,0.1);
     font-size: 1.2rem;
-    padding: 5px;
+    padding: 8px;
     cursor: pointer;
     transition: 0.2s;
+    z-index: 5;
 }
 
 .fav-btn:hover, .fav-btn.active {
