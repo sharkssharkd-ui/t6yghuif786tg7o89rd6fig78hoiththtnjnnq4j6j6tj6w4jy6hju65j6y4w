@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
             this.y = Math.random() * height;
             this.size = Math.random() * 2 + 0.5;
             this.opacity = Math.random() * 0.5 + 0.2;
-            // Медленное случайное движение в любую сторону
             this.speedX = (Math.random() - 0.5) * 0.3;
             this.speedY = (Math.random() - 0.5) * 0.3;
         }
@@ -79,76 +78,80 @@ document.addEventListener('DOMContentLoaded', () => {
         "Учеба": "fa-solid fa-graduation-cap"
     };
 
-    // === БАЗА ДАННЫХ (ПОЛНАЯ + РУССКИЙ ПОИСК) ===
-    // Я добавил русские ключевые слова в описание, чтобы поиск их видел
+    // === БАЗА ДАННЫХ (ОБНОВЛЕННАЯ) ===
     const db = [
-        // --- ГЛАВНОЕ (Твои сайты + База) ---
+        // --- ГЛАВНОЕ ---
         { cat: "Главное", name: "Vesperia SMP", url: "https://vesperiasmp.ru/", desc: "Твой сервер майнкрафт (весперия)" },
         { cat: "Главное", name: "Bisquit Host", url: "https://bisquit.host/", desc: "Хостинг серверов (бисквит)" },
-        { cat: "Главное", name: "Telegram Web", url: "https://web.telegram.org/", desc: "Телеграм (тг, telegram)" },
-        { cat: "Главное", name: "Discord", url: "https://discord.com/login", desc: "Дискорд (дс, discord)" },
-        { cat: "Главное", name: "YouTube", url: "https://www.youtube.com/", desc: "Видеохостинг (ютуб)" },
-        { cat: "Главное", name: "Twitch", url: "https://www.twitch.tv/", desc: "Стримы (твич)" },
-        { cat: "Главное", name: "VK", url: "https://vk.com/", desc: "ВКонтакте (вк)" },
+        { cat: "Главное", name: "Telegram Web", url: "https://web.telegram.org/", desc: "Телеграм (тг)" },
+        { cat: "Главное", name: "Discord", url: "https://discord.com/login", desc: "Дискорд (дс)" },
+        { cat: "Главное", name: "YouTube", url: "https://www.youtube.com/", desc: "Ютуб видео" },
+        { cat: "Главное", name: "Twitch", url: "https://www.twitch.tv/", desc: "Стримы твич" },
+        { cat: "Главное", name: "VK", url: "https://vk.com/", desc: "ВКонтакте" },
         { cat: "Главное", name: "Gmail", url: "https://mail.google.com/", desc: "Почта Гугл" },
         { cat: "Главное", name: "Yandex Mail", url: "https://mail.yandex.ru/", desc: "Почта Яндекс" },
         { cat: "Главное", name: "Google Drive", url: "https://drive.google.com/", desc: "Гугл Диск" },
         { cat: "Главное", name: "Yandex Disk", url: "https://disk.yandex.ru/", desc: "Яндекс Диск" },
-        { cat: "Главное", name: "Pinterest", url: "https://www.pinterest.com/", desc: "Картинки и идеи (пинтерест)" },
+        { cat: "Главное", name: "Pinterest", url: "https://www.pinterest.com/", desc: "Идеи и картинки" },
         { cat: "Главное", name: "Reddit", url: "https://www.reddit.com/", desc: "Форум реддит" },
-        { cat: "Главное", name: "TikTok", url: "https://www.tiktok.com/", desc: "ТикТок видео" },
-        { cat: "Главное", name: "Rutube", url: "https://rutube.ru/", desc: "Рутуб видео" },
-        { cat: "Главное", name: "Dzen", url: "https://dzen.ru/", desc: "Дзен (яндекс)" },
+        { cat: "Главное", name: "TikTok", url: "https://www.tiktok.com/", desc: "ТикТок" },
+        { cat: "Главное", name: "Rutube", url: "https://rutube.ru/", desc: "Рутуб" },
+        { cat: "Главное", name: "Dzen", url: "https://dzen.ru/", desc: "Дзен" },
         { cat: "Главное", name: "Google Maps", url: "https://www.google.com/maps", desc: "Гугл карты" },
         { cat: "Главное", name: "2GIS", url: "https://2gis.ru/", desc: "Карты 2ГИС" },
-        { cat: "Главное", name: "WhatsApp", url: "https://web.whatsapp.com/", desc: "Ватсап веб" },
-        { cat: "Главное", name: "Zoom", url: "https://zoom.us/", desc: "Звонки зум" },
+        { cat: "Главное", name: "WhatsApp", url: "https://web.whatsapp.com/", desc: "Ватсап" },
+        { cat: "Главное", name: "Zoom", url: "https://zoom.us/", desc: "Зум" },
         { cat: "Главное", name: "Gismeteo", url: "https://www.gismeteo.ru/", desc: "Погода" },
-        { cat: "Главное", name: "Twitter (X)", url: "https://twitter.com/", desc: "Твиттер (икс)" },
-        { cat: "Главное", name: "Instagram", url: "https://www.instagram.com/", desc: "Инстаграм (инста)" },
+        { cat: "Главное", name: "Twitter (X)", url: "https://twitter.com/", desc: "Твиттер" },
+        { cat: "Главное", name: "Instagram", url: "https://www.instagram.com/", desc: "Инстаграм" },
         { cat: "Главное", name: "Kick", url: "https://kick.com/", desc: "Стримы Кик" },
 
-        // --- УТИЛИТЫ (Твои сайты + Новые) ---
+        // --- УТИЛИТЫ (Новые + Старые) ---
+        { cat: "Утилиты", name: "Snapdrop", url: "https://snapdrop.net/", desc: "AirDrop для любых устройств" },
+        { cat: "Утилиты", name: "AlternativeTo", url: "https://alternativeto.net/", desc: "Поиск аналогов программ" },
         { cat: "Утилиты", name: "ResizePixel", url: "https://www.resizepixel.com/ru/", desc: "Изменить размер фото" },
-        { cat: "Утилиты", name: "PostImages", url: "https://postimages.org/", desc: "Хостинг картинок (ссылка)" },
+        { cat: "Утилиты", name: "PostImages", url: "https://postimages.org/", desc: "Залить картинку ссылкой" },
         { cat: "Утилиты", name: "Check-Host", url: "https://check-host.net/", desc: "Проверка IP и сайта" },
         { cat: "Утилиты", name: "Cobalt Tools", url: "https://cobalt.tools/", desc: "Скачать видео без знаков" },
         { cat: "Утилиты", name: "VirusTotal", url: "https://www.virustotal.com/", desc: "Проверка на вирусы" },
-        { cat: "Утилиты", name: "DeepL", url: "https://www.deepl.com/translator", desc: "Переводчик (дипл)" },
+        { cat: "Утилиты", name: "DeepL", url: "https://www.deepl.com/translator", desc: "Лучший переводчик" },
         { cat: "Утилиты", name: "Convertio", url: "https://convertio.co/ru/", desc: "Конвертер файлов" },
         { cat: "Утилиты", name: "TempMail", url: "https://temp-mail.org/", desc: "Временная почта" },
         { cat: "Утилиты", name: "SpeedTest", url: "https://www.speedtest.net/", desc: "Скорость интернета" },
-        { cat: "Утилиты", name: "Remove.bg", url: "https://www.remove.bg/", desc: "Удалить фон с фото" },
+        { cat: "Утилиты", name: "Remove.bg", url: "https://www.remove.bg/", desc: "Удалить фон" },
         { cat: "Утилиты", name: "Photopea", url: "https://www.photopea.com/", desc: "Фотошоп онлайн" },
-        { cat: "Утилиты", name: "Waifu2x", url: "https://waifu2x.udp.jp/", desc: "Улучшить аниме фото" },
+        { cat: "Утилиты", name: "Waifu2x", url: "https://waifu2x.udp.jp/", desc: "Улучшить качество фото" },
         { cat: "Утилиты", name: "TinyPNG", url: "https://tinypng.com/", desc: "Сжать фото" },
         { cat: "Утилиты", name: "Screenshot Guru", url: "https://screenshot.guru/", desc: "Скриншот сайта" },
         { cat: "Утилиты", name: "Privnote", url: "https://privnote.com/", desc: "Секретная записка" },
         { cat: "Утилиты", name: "Pastebin", url: "https://pastebin.com/", desc: "Текст ссылкой" },
         { cat: "Утилиты", name: "IP Logger", url: "https://iplogger.org/", desc: "Сократить ссылку" },
-        { cat: "Утилиты", name: "Archive.org", url: "https://web.archive.org/", desc: "Архив интернета" },
-        { cat: "Утилиты", name: "10 Minute Mail", url: "https://10minutemail.com/", desc: "Почта на 10 минут" },
+        { cat: "Утилиты", name: "Archive.org", url: "https://web.archive.org/", desc: "Машина времени" },
+        { cat: "Утилиты", name: "10 Minute Mail", url: "https://10minutemail.com/", desc: "Почта на 10 мин" },
         { cat: "Утилиты", name: "Ninite", url: "https://ninite.com/", desc: "Установка программ" },
         { cat: "Утилиты", name: "WinDirStat", url: "https://windirstat.net/", desc: "Место на диске" },
-        { cat: "Утилиты", name: "QR Generator", url: "https://ru.qr-code-generator.com/", desc: "Создать QR код" },
+        { cat: "Утилиты", name: "QR Generator", url: "https://ru.qr-code-generator.com/", desc: "Создать QR" },
         { cat: "Утилиты", name: "I Love PDF", url: "https://www.ilovepdf.com/ru", desc: "Редактор PDF" },
         { cat: "Утилиты", name: "Regex101", url: "https://regex101.com/", desc: "Регулярки" },
         { cat: "Утилиты", name: "Have I Been Pwned", url: "https://haveibeenpwned.com/", desc: "Проверка слива" },
         { cat: "Утилиты", name: "Keyboard Test", url: "https://key-test.ru/", desc: "Тест клавиатуры" },
-        { cat: "Утилиты", name: "Whoer", url: "https://whoer.net/ru", desc: "Анонимность и IP" },
-        { cat: "Утилиты", name: "2IP", url: "https://2ip.ru/", desc: "Мой IP адрес" },
-        { cat: "Утилиты", name: "BigJpg", url: "https://bigjpg.com/", desc: "Апскейл ИИ" },
-        { cat: "Утилиты", name: "Squoosh", url: "https://squoosh.app/", desc: "Сжатие картинок Google" },
+        { cat: "Утилиты", name: "Whoer", url: "https://whoer.net/ru", desc: "Анонимность IP" },
+        { cat: "Утилиты", name: "2IP", url: "https://2ip.ru/", desc: "Мой IP" },
+        { cat: "Утилиты", name: "BugMeNot", url: "http://bugmenot.com/", desc: "Общие логины сайтов" },
+        { cat: "Утилиты", name: "Untools", url: "https://untools.co/", desc: "Инструменты мышления" },
+        { cat: "Утилиты", name: "JustDeleteMe", url: "https://backgroundchecks.org/justdeleteme/", desc: "Удалить аккаунты" },
+        { cat: "Утилиты", name: "ManualsLib", url: "https://www.manualslib.com/", desc: "Инструкции ко всему" },
+        { cat: "Утилиты", name: "PrintFriendly", url: "https://www.printfriendly.com/", desc: "Печать без мусора" },
 
         // --- AI / НЕЙРОСЕТИ ---
         { cat: "AI / Нейро", name: "ChatGPT", url: "https://chat.openai.com/", desc: "Чат ГПТ" },
-        { cat: "AI / Нейро", name: "Gemini", url: "https://gemini.google.com/", desc: "Гугл ИИ (джемини)" },
+        { cat: "AI / Нейро", name: "Gemini", url: "https://gemini.google.com/", desc: "Гугл ИИ" },
         { cat: "AI / Нейро", name: "Midjourney", url: "https://www.midjourney.com/", desc: "Генерация артов" },
         { cat: "AI / Нейро", name: "Suno", url: "https://suno.com/", desc: "Музыка с вокалом" },
         { cat: "AI / Нейро", name: "Grok", url: "https://grok.x.ai/", desc: "ИИ Илона Маска" },
         { cat: "AI / Нейро", name: "Claude", url: "https://claude.ai/", desc: "Умный чат Клод" },
         { cat: "AI / Нейро", name: "Character.ai", url: "https://beta.character.ai/", desc: "Чат с персонажами" },
-        { cat: "AI / Нейро", name: "VocalRemover", url: "https://vocalremover.org/ru/", desc: "Удалить голос (минус)" },
+        { cat: "AI / Нейро", name: "VocalRemover", url: "https://vocalremover.org/ru/", desc: "Сделать минус" },
         { cat: "AI / Нейро", name: "ElevenLabs", url: "https://elevenlabs.io/", desc: "Озвучка текста" },
         { cat: "AI / Нейро", name: "Luma Dream", url: "https://lumalabs.ai/dream-machine", desc: "Видео из текста" },
         { cat: "AI / Нейро", name: "Perplexity", url: "https://www.perplexity.ai/", desc: "Поисковик фактов" },
@@ -163,14 +166,13 @@ document.addEventListener('DOMContentLoaded', () => {
         { cat: "AI / Нейро", name: "Gamma", url: "https://gamma.app/", desc: "Презентации" },
         { cat: "AI / Нейро", name: "Phind", url: "https://www.phind.com/", desc: "ИИ для кодеров" },
         { cat: "AI / Нейро", name: "Blackbox", url: "https://www.blackbox.ai/", desc: "Помощь с кодом" },
-        { cat: "AI / Нейро", name: "Poe", url: "https://poe.com/", desc: "Все боты сразу" },
-        { cat: "AI / Нейро", name: "Stable Audio", url: "https://stableaudio.com/", desc: "Генерация звуков" },
-        { cat: "AI / Нейро", name: "Krea", url: "https://www.krea.ai/", desc: "Рисование онлайн" },
-        { cat: "AI / Нейро", name: "Copy.ai", url: "https://www.copy.ai/", desc: "Написание текстов" },
-        { cat: "AI / Нейро", name: "Jasper", url: "https://www.jasper.ai/", desc: "Копирайтинг" },
+        { cat: "AI / Нейро", name: "WatermarkRemover", url: "https://www.watermarkremover.io/", desc: "Удалить водяной знак" },
+        { cat: "AI / Нейро", name: "GoblinTools", url: "https://goblin.tools/", desc: "Помощь с делами" },
+        { cat: "AI / Нейро", name: "RizzGPT", url: "https://rizzgpt.app/", desc: "Генератор ответов" },
 
-        // --- MINECRAFT (Твои + Доп) ---
-        { cat: "Minecraft", name: "MC Icons", url: "https://mcicons.ccleaf.com/", desc: "Иконки серверов (твое)" },
+        // --- MINECRAFT (Добавлен Blockbench) ---
+        { cat: "Minecraft", name: "Blockbench", url: "https://www.blockbench.net/", desc: "3D моделирование" },
+        { cat: "Minecraft", name: "MC Icons", url: "https://mcicons.ccleaf.com/", desc: "Иконки серверов" },
         { cat: "Minecraft", name: "Modrinth", url: "https://modrinth.com/", desc: "Скачать моды" },
         { cat: "Minecraft", name: "NameMC", url: "https://ru.namemc.com/", desc: "Ники и скины" },
         { cat: "Minecraft", name: "CurseForge", url: "https://www.curseforge.com/minecraft", desc: "База модов" },
@@ -195,12 +197,11 @@ document.addEventListener('DOMContentLoaded', () => {
         { cat: "Minecraft", name: "RGB Gradient", url: "https://rgb.birdflop.com/", desc: "Градиент текста" },
         { cat: "Minecraft", name: "Wiki", url: "https://minecraft.wiki/", desc: "Википедия" },
         { cat: "Minecraft", name: "Exaroton", url: "https://exaroton.com/", desc: "Платный хост" },
-        { cat: "Minecraft", name: "FTB", url: "https://www.feed-the-beast.com/", desc: "Сборки модов" },
-        { cat: "Minecraft", name: "Technic", url: "https://www.technicpack.net/", desc: "Лаунчер" },
         { cat: "Minecraft", name: "Sodium", url: "https://modrinth.com/mod/sodium", desc: "Буст ФПС" },
+        { cat: "Minecraft", name: "Seus Shaders", url: "https://www.sonicether.com/seus/", desc: "Красивые шейдеры" },
 
-        // --- ВИЗУАЛ (Твои + Доп) ---
-        { cat: "Визуал", name: "Piskel", url: "https://www.piskelapp.com/", desc: "Пиксель арт (твое)" },
+        // --- ВИЗУАЛ ---
+        { cat: "Визуал", name: "Piskel", url: "https://www.piskelapp.com/", desc: "Пиксель арт" },
         { cat: "Визуал", name: "CoolSymbol", url: "https://coolsymbol.com/", desc: "Символы и значки" },
         { cat: "Визуал", name: "Unicode", url: "https://unicode-table.com/ru/", desc: "Таблица Юникода" },
         { cat: "Визуал", name: "Kaomoji", url: "https://kaomoji.ru/", desc: "Японские смайлы" },
@@ -222,14 +223,14 @@ document.addEventListener('DOMContentLoaded', () => {
         { cat: "Визуал", name: "Weavesilk", url: "http://weavesilk.com/", desc: "Шелковые узоры" },
         { cat: "Визуал", name: "Autodraw", url: "https://www.autodraw.com/", desc: "Рисовалка Гугл" },
         { cat: "Визуал", name: "Vector Magic", url: "https://vectormagic.com/", desc: "Векторизация" },
-        { cat: "Визуал", name: "Dribbble", url: "https://dribbble.com/", desc: "Вдохновение" },
-        { cat: "Визуал", name: "Behance", url: "https://www.behance.net/", desc: "Портфолио" },
-        { cat: "Визуал", name: "Pixabay", url: "https://pixabay.com/", desc: "Бесплатные фото" },
-        { cat: "Визуал", name: "Pexels", url: "https://www.pexels.com/", desc: "Видео футажи" },
-        { cat: "Визуал", name: "Icons8", url: "https://icons8.com/", desc: "Пак иконок" },
-        { cat: "Визуал", name: "Clippy", url: "https://bennettfeely.com/clippy/", desc: "CSS формы" },
+        { cat: "Визуал", name: "Huemint", url: "https://huemint.com/", desc: "AI цвета" },
+        { cat: "Визуал", name: "TypeScale", url: "https://typescale.com/", desc: "Шрифтовые пары" },
+        { cat: "Визуал", name: "Profile Pic", url: "https://pfpmaker.com/", desc: "Аватарка крутая" },
+        { cat: "Визуал", name: "Shots.so", url: "https://shots.so/", desc: "Красивые мокапы" },
 
-        // --- ФАН ---
+        // --- ФАН (Новые: акулы, ноклип) ---
+        { cat: "Фан", name: "OCEARCH", url: "https://www.ocearch.org/tracker/", desc: "Трекер акул" },
+        { cat: "Фан", name: "Noclip", url: "https://noclip.website/", desc: "Карты игр" },
         { cat: "Фан", name: "Neal.fun", url: "https://neal.fun/", desc: "Мини-игры" },
         { cat: "Фан", name: "GeoGuessr", url: "https://www.geoguessr.com/", desc: "Угадай страну" },
         { cat: "Фан", name: "Akinator", url: "https://ru.akinator.com/", desc: "Акинатор" },
@@ -238,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { cat: "Фан", name: "Little Alchemy", url: "https://littlealchemy2.com/", desc: "Алхимия" },
         { cat: "Фан", name: "Hacker Typer", url: "https://hackertyper.net/", desc: "Хакер" },
         { cat: "Фан", name: "Pointer", url: "https://pointerpointer.com/", desc: "Палец на курсор" },
-        { cat: "Фан", name: "Infinite Craft", url: "https://neal.fun/infinite-craft/", desc: "Бесконечный крафт" },
+        { cat: "Фан", name: "Infinite Craft", url: "https://neal.fun/infinite-craft/", desc: "Крафт всего" },
         { cat: "Фан", name: "CityGuesser", url: "https://virtualvacation.us/guess", desc: "Угадай город" },
         { cat: "Фан", name: "Paper.io", url: "https://paper-io.com/", desc: "Захват зоны" },
         { cat: "Фан", name: "Slither.io", url: "http://slither.io/", desc: "Змейка" },
@@ -247,17 +248,12 @@ document.addEventListener('DOMContentLoaded', () => {
         { cat: "Фан", name: "Slow Roads", url: "https://slowroads.io/", desc: "Вождение" },
         { cat: "Фан", name: "Dino Swords", url: "https://dinoswords.gg/", desc: "Динозавр" },
         { cat: "Фан", name: "Windows 93", url: "http://www.windows93.net/", desc: "Виндовс 93" },
-        { cat: "Фан", name: "Cookie Clicker", url: "https://orteil.dashnet.org/cookieclicker/", desc: "Кликер печенья" },
-        { cat: "Фан", name: "Trust Game", url: "https://ncase.me/trust/", desc: "Игра доверие" },
-        { cat: "Фан", name: "Gartic Phone", url: "https://garticphone.com/ru", desc: "Сломанный телефон" },
-        { cat: "Фан", name: "Skribbl", url: "https://skribbl.io/", desc: "Рисовалка" },
-        { cat: "Фан", name: "Jigsaw", url: "https://www.jigsawexplorer.com/", desc: "Пазлы" },
-        { cat: "Фан", name: "Internet Map", url: "https://internet-map.net/", desc: "Карта интернета" },
-        { cat: "Фан", name: "2048", url: "https://play2048.co/", desc: "Игра 2048" },
-        { cat: "Фан", name: "Tetris", url: "https://tetris.com/play-tetris", desc: "Тетрис" },
-        { cat: "Фан", name: "Minesweeper", url: "https://minesweeper.online/ru/", desc: "Сапер" },
-        { cat: "Фан", name: "MonkeyType", url: "https://monkeytype.com/", desc: "Тест печати" },
-        { cat: "Фан", name: "Typeracer", url: "https://play.typeracer.com/", desc: "Гонки печать" },
+        { cat: "Фан", name: "Cookie Clicker", url: "https://orteil.dashnet.org/cookieclicker/", desc: "Кликер" },
+        { cat: "Фан", name: "MapCrunch", url: "https://www.mapcrunch.com/", desc: "Рандом улицы" },
+        { cat: "Фан", name: "Supercook", url: "https://www.supercook.com/", desc: "Рецепты из ничего" },
+        { cat: "Фан", name: "Bill Gates", url: "https://neal.fun/spend/", desc: "Тратить деньги" },
+        { cat: "Фан", name: "True Size", url: "https://www.thetruesize.com/", desc: "Размеры стран" },
+        { cat: "Фан", name: "Garden of Words", url: "http://www.garden-of-words.com/", desc: "Сад слов" },
 
         // --- КИНО И АНИМЕ ---
         { cat: "Кино и Аниме", name: "Kinopoisk", url: "https://www.kinopoisk.ru/", desc: "Кинопоиск" },
@@ -277,6 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { cat: "Кино и Аниме", name: "Dorama Live", url: "https://doramalive.com/", desc: "Дорамы" },
 
         // --- АУДИО ---
+        { cat: "Аудио", name: "Radioiss", url: "http://radioiss.com/", desc: "Радио МКС" },
         { cat: "Аудио", name: "Yandex Music", url: "https://music.yandex.ru/", desc: "Яндекс Музыка" },
         { cat: "Аудио", name: "Spotify", url: "https://open.spotify.com/", desc: "Спотифай" },
         { cat: "Аудио", name: "SoundCloud", url: "https://soundcloud.com/", desc: "Саундклауд" },
@@ -291,13 +288,13 @@ document.addEventListener('DOMContentLoaded', () => {
         { cat: "Аудио", name: "BeepBox", url: "https://beepbox.co/", desc: "Чиптюн" },
         { cat: "Аудио", name: "Online Sequencer", url: "https://onlinesequencer.net/", desc: "Пианино" },
         { cat: "Аудио", name: "Shazam", url: "https://www.shazam.com/ru", desc: "Шазам" },
-        { cat: "Аудио", name: "Radio Garden", url: "http://radio.garden/", desc: "Радио глобус" },
+        { cat: "Аудио", name: "Radio Garden", url: "http://radio.garden/", desc: "Радио на глобусе" },
         { cat: "Аудио", name: "NCS", url: "https://ncs.io/", desc: "Музыка без АП" },
         { cat: "Аудио", name: "Tabletop Audio", url: "https://tabletopaudio.com/", desc: "Звуки RPG" },
         { cat: "Аудио", name: "MyNoise", url: "https://mynoise.net/", desc: "Шум" },
-        { cat: "Аудио", name: "Generative.fm", url: "https://generative.fm/", desc: "Эмбиент" },
 
         // --- IT / КОД ---
+        { cat: "IT / Код", name: "Ray.so", url: "https://ray.so/", desc: "Красивый код" },
         { cat: "IT / Код", name: "GitHub", url: "https://github.com/", desc: "Гитхаб" },
         { cat: "IT / Код", name: "StackOverflow", url: "https://stackoverflow.com/", desc: "Ответы вопросы" },
         { cat: "IT / Код", name: "Replit", url: "https://replit.com/", desc: "IDE онлайн" },
@@ -308,21 +305,14 @@ document.addEventListener('DOMContentLoaded', () => {
         { cat: "IT / Код", name: "JSFiddle", url: "https://jsfiddle.net/", desc: "Fiddle" },
         { cat: "IT / Код", name: "JSON Lint", url: "https://jsonlint.com/", desc: "Валидатор" },
         { cat: "IT / Код", name: "DevDocs", url: "https://devdocs.io/", desc: "Документация" },
-        { cat: "IT / Код", name: "MDN", url: "https://developer.mozilla.org/", desc: "MDN Web" },
-        { cat: "IT / Код", name: "W3Schools", url: "https://www.w3schools.com/", desc: "Уроки кода" },
         { cat: "IT / Код", name: "LeetCode", url: "https://leetcode.com/", desc: "Задачи" },
         { cat: "IT / Код", name: "CodeWars", url: "https://www.codewars.com/", desc: "Ката" },
         { cat: "IT / Код", name: "Cloudflare", url: "https://www.cloudflare.com/", desc: "DNS" },
         { cat: "IT / Код", name: "Vercel", url: "https://vercel.com/", desc: "Хостинг" },
-        { cat: "IT / Код", name: "Can I Use", url: "https://caniuse.com/", desc: "Браузеры" },
-        { cat: "IT / Код", name: "NPM", url: "https://www.npmjs.com/", desc: "Пакеты" },
-        { cat: "IT / Код", name: "Docker", url: "https://hub.docker.com/", desc: "Докер" },
-        { cat: "IT / Код", name: "GitLab", url: "https://about.gitlab.com/", desc: "Гитлаб" },
-        { cat: "IT / Код", name: "CSS Tricks", url: "https://css-tricks.com/", desc: "CSS трюки" },
-        { cat: "IT / Код", name: "FreeCodeCamp", url: "https://www.freecodecamp.org/", desc: "Курсы" },
-        { cat: "IT / Код", name: "Bootstrap", url: "https://getbootstrap.com/", desc: "Бутстрап" },
-        { cat: "IT / Код", name: "React", url: "https://react.dev/", desc: "Реакт" },
-        { cat: "IT / Код", name: "Vue", url: "https://vuejs.org/", desc: "Вью" },
+        { cat: "IT / Код", name: "DevHints", url: "https://devhints.io/", desc: "Шпаргалки" },
+        { cat: "IT / Код", name: "Transform", url: "https://transform.tools/", desc: "Конвертер кода" },
+        { cat: "IT / Код", name: "BundlePhobia", url: "https://bundlephobia.com/", desc: "Размер npm" },
+        { cat: "IT / Код", name: "CryptoZombies", url: "https://cryptozombies.io/", desc: "Учить блокчейн" },
 
         // --- МАГАЗИНЫ ---
         { cat: "Магазины", name: "Steam", url: "https://store.steampowered.com/", desc: "Стим" },
@@ -335,20 +325,22 @@ document.addEventListener('DOMContentLoaded', () => {
         { cat: "Магазины", name: "Ozon", url: "https://www.ozon.ru/", desc: "Озон" },
         { cat: "Магазины", name: "Epic Games", url: "https://store.epicgames.com/", desc: "Эпик" },
         { cat: "Магазины", name: "GOG", url: "https://www.gog.com/", desc: "ГОГ" },
-        { cat: "Магазины", name: "Itch.io", url: "https://itch.io/", desc: "Инди игры" },
+        { cat: "Магазины", name: "Itch.io", url: "https://itch.io/", desc: "Инди" },
         { cat: "Магазины", name: "GGSel", url: "https://ggsel.net/", desc: "Ключи" },
         { cat: "Магазины", name: "Kupikod", url: "https://kupikod.com/", desc: "Пополнение" },
-        { cat: "Магазины", name: "AliExpress", url: "https://aliexpress.ru/", desc: "Алиэкспресс" },
+        { cat: "Магазины", name: "AliExpress", url: "https://aliexpress.ru/", desc: "Али" },
         { cat: "Магазины", name: "Avito", url: "https://www.avito.ru/", desc: "Авито" },
-        { cat: "Магазины", name: "Yandex Market", url: "https://market.yandex.ru/", desc: "Яндекс Маркет" },
+        { cat: "Магазины", name: "Yandex Market", url: "https://market.yandex.ru/", desc: "Маркет" },
         { cat: "Магазины", name: "MVideo", url: "https://www.mvideo.ru/", desc: "МВидео" },
         { cat: "Магазины", name: "Eneba", url: "https://www.eneba.com/", desc: "Ключи" },
         { cat: "Магазины", name: "Humble", url: "https://www.humblebundle.com/", desc: "Бандлы" },
-        { cat: "Магазины", name: "CDKeys", url: "https://www.cdkeys.com/", desc: "Дешевые ключи" },
+        { cat: "Магазины", name: "CDKeys", url: "https://www.cdkeys.com/", desc: "Дешево" },
 
         // --- УЧЕБА ---
+        { cat: "Учеба", name: "DeepL Write", url: "https://www.deepl.com/write", desc: "Исправить текст" },
+        { cat: "Учеба", name: "NASA Images", url: "https://images.nasa.gov/", desc: "Фото космоса" },
         { cat: "Учеба", name: "Foxford", url: "https://foxford.ru/", desc: "Фоксфорд (твое)" },
-        { cat: "Учеба", name: "Wikipedia", url: "https://ru.wikipedia.org/", desc: "Википедия" },
+        { cat: "Учеба", name: "Wikipedia", url: "https://ru.wikipedia.org/", desc: "Вики" },
         { cat: "Учеба", name: "WolframAlpha", url: "https://www.wolframalpha.com/", desc: "Вольфрам" },
         { cat: "Учеба", name: "GDZ", url: "https://gdz.ru/", desc: "ГДЗ" },
         { cat: "Учеба", name: "Stepik", url: "https://stepik.org/", desc: "Степик" },
@@ -366,20 +358,21 @@ document.addEventListener('DOMContentLoaded', () => {
         { cat: "Учеба", name: "Grammarly", url: "https://www.grammarly.com/", desc: "Грамматика" },
         { cat: "Учеба", name: "Uchi.ru", url: "https://uchi.ru/", desc: "Учи.ру" },
         { cat: "Учеба", name: "Resh", url: "https://resh.edu.ru/", desc: "РЭШ" },
-        { cat: "Учеба", name: "Briefly", url: "https://briefly.ru/", desc: "Кратко" }
+        { cat: "Учеба", name: "Briefly", url: "https://briefly.ru/", desc: "Кратко" },
+        { cat: "Учеба", name: "Sci-Hub", url: "https://sci-hub.se/", desc: "Научные статьи" },
+        { cat: "Учеба", name: "LibGen", url: "https://libgen.is/", desc: "Библиотека" },
+        { cat: "Учеба", name: "Stellarium", url: "https://stellarium-web.org/", desc: "Карта звезд" }
     ];
 
     // === ЛОГИКА ===
     let currentCategory = "Избранное";
     let favorites = JSON.parse(localStorage.getItem('vesperiaFavs'));
     
-    // Если запускаем первый раз - добавляем Vesperia
     if (!favorites) {
         favorites = ["https://vesperiasmp.ru/"];
         localStorage.setItem('vesperiaFavs', JSON.stringify(favorites));
     }
 
-    // Функция для поиска при неправильной раскладке (ghbdtn -> привет)
     function fixKeyboardLayout(text) {
         const replacer = {
             "q":"й", "w":"ц", "e":"у", "r":"к", "t":"е", "y":"н", "u":"г", 
@@ -424,7 +417,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const fixedQuery = fixKeyboardLayout(lowerQuery);
 
         if (searchQuery.trim() !== "") {
-            // Умный поиск: ищем в названии, описании и проверяем раскладку
             sitesToShow = db.filter(site => 
                 site.name.toLowerCase().includes(lowerQuery) || 
                 site.desc.toLowerCase().includes(lowerQuery) ||
@@ -438,7 +430,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div style='text-align:center; padding: 60px; color:#aaa; width: 100%;'>
                         <i class="fa-regular fa-star" style="font-size: 4rem; margin-bottom: 20px; opacity: 0.3;"></i>
                         <h2>Пусто</h2>
-                        <p>Нажми на звездочку у сайта, чтобы добавить его сюда.</p>
+                        <p>Добавь сайты звездочкой!</p>
                     </div>`;
                 return;
             }
@@ -471,7 +463,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 </button>
             `;
 
-            // Обработка клика по звездочке
             const favBtn = card.querySelector('.fav-btn');
             favBtn.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -504,7 +495,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Запуск
     renderTabs();
     renderSites();
 });
