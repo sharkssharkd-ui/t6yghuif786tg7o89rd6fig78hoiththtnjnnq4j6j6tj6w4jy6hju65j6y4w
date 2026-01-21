@@ -2,23 +2,22 @@
     --bg-deep: #050508; 
     --bg-center: #120b29;
     
-    --card-bg: rgba(20, 15, 35, 0.7); /* Чуть темнее для контраста */
+    --card-bg: rgba(20, 15, 35, 0.7);
     --card-hover: rgba(138, 43, 226, 0.3);
-    --accent: #9d00ff; /* Тот самый фиолетовый */
+    --accent: #9d00ff;
     --accent-glow: #bd6eff;
     --star-color: #ffffff;
     --text-main: #ffffff;
-    --text-sec: #b8b8d0;
+    --text-sec: #b0b0c5;
 }
 
 body {
-    background: radial-gradient(circle at 50% 30%, var(--bg-center) 0%, var(--bg-deep) 80%);
+    background: radial-gradient(circle at 50% 40%, var(--bg-center) 0%, var(--bg-deep) 80%);
     color: var(--text-main);
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
     min-height: 100vh;
     overflow-x: hidden;
-    -webkit-tap-highlight-color: transparent;
 }
 
 #starfield {
@@ -41,23 +40,19 @@ header {
     padding: 50px 0 30px;
 }
 
-/* === ЛОГОТИП КАК НА СКРИНЕ === */
+/* Логотип Vesperia */
 .pixel-logo {
-    font-family: 'Russo One', sans-serif; /* Жирный блочный шрифт */
-    font-size: 4rem;
+    font-family: 'Russo One', sans-serif;
+    font-size: 3.8rem;
     margin: 0;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     color: #ffffff;
     text-transform: uppercase;
-    text-shadow: 4px 4px 0px #000000; /* Тень для объема */
+    text-shadow: 3px 3px 0px #000000;
 }
 
 .pixel-logo .purple-text {
-    color: #a855f7; /* Светло-фиолетовый как на скрине */
-}
-
-@media (max-width: 600px) {
-    .pixel-logo { font-size: 2.5rem; }
+    color: #a855f7;
 }
 
 /* Поиск */
@@ -77,10 +72,10 @@ header {
 
 .search-box {
     width: 100%;
-    padding: 15px 20px 15px 50px;
+    padding: 16px 20px 16px 50px;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
     color: white;
     font-size: 1.1rem;
     outline: none;
@@ -91,8 +86,7 @@ header {
 
 .search-box:focus {
     border-color: var(--accent);
-    background: rgba(0, 0, 0, 0.7);
-    box-shadow: 0 0 15px rgba(157, 0, 255, 0.3);
+    box-shadow: 0 0 20px rgba(157, 0, 255, 0.25);
 }
 
 /* Табы */
@@ -119,12 +113,7 @@ header {
     font-weight: 600;
 }
 
-.tab-btn:hover {
-    background: rgba(157, 0, 255, 0.2);
-    color: white;
-}
-
-.tab-btn.active {
+.tab-btn.active, .tab-btn:hover {
     background: var(--accent);
     color: white;
     border-color: var(--accent-glow);
@@ -134,16 +123,16 @@ header {
 /* Сетка */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 15px;
     animation: fadeIn 0.4s ease;
 }
 
 @media (max-width: 600px) {
     .grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 колонки на телефоне */
-        gap: 10px;
+        grid-template-columns: repeat(1, 1fr); /* 1 колонка для удобства на телефоне */
     }
+    .pixel-logo { font-size: 2.5rem; }
 }
 
 .card {
@@ -168,23 +157,25 @@ header {
 }
 
 .card img {
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
     border-radius: 8px;
     background: rgba(0,0,0,0.2);
     padding: 4px;
-    object-fit: contain; /* Чтобы иконка не плющилась */
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 .card-content {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    flex-grow: 1;
 }
 
 .card-title {
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: white;
     white-space: nowrap;
     overflow: hidden;
@@ -192,36 +183,27 @@ header {
 }
 
 .card-desc {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     color: var(--text-sec);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-top: 2px;
+    margin-top: 3px;
 }
 
 .fav-btn {
-    position: absolute;
-    top: 5px;
-    right: 5px;
     background: none;
     border: none;
-    color: rgba(255,255,255,0.15);
-    font-size: 1.1rem;
-    padding: 8px;
+    color: rgba(255,255,255,0.1);
+    font-size: 1.2rem;
+    padding: 5px;
     cursor: pointer;
     transition: 0.2s;
-    z-index: 5;
 }
 
-.fav-btn:hover {
+.fav-btn:hover, .fav-btn.active {
     color: var(--star-color);
-    transform: scale(1.1);
-}
-
-.fav-btn.active {
-    color: var(--star-color);
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
 }
 
 @keyframes fadeIn {
