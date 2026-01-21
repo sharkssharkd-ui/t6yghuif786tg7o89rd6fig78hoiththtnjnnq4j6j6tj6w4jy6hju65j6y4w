@@ -1,16 +1,18 @@
 :root {
-    --bg-color: #1a0b2e; /* Твой любимый фиолетовый */
-    --card-bg: rgba(45, 20, 80, 0.6);
-    --card-hover: rgba(138, 43, 226, 0.4);
-    --accent: #b026ff;
-    --accent-glow: #d980ff;
-    --star-color: #ffd700;
+    --bg-deep: #050508; 
+    --bg-center: #120b29;
+    
+    --card-bg: rgba(20, 15, 35, 0.7); /* Чуть темнее для контраста */
+    --card-hover: rgba(138, 43, 226, 0.3);
+    --accent: #9d00ff; /* Тот самый фиолетовый */
+    --accent-glow: #bd6eff;
+    --star-color: #ffffff;
     --text-main: #ffffff;
-    --text-sec: #d1c4e9;
+    --text-sec: #b8b8d0;
 }
 
 body {
-    background-color: var(--bg-color);
+    background: radial-gradient(circle at 50% 30%, var(--bg-center) 0%, var(--bg-deep) 80%);
     color: var(--text-main);
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
@@ -19,39 +21,14 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
-/* === Параллакс Фон === */
-#parallax-container {
+#starfield {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
     z-index: -1;
-    overflow: hidden;
 }
 
-.layer {
-    position: absolute;
-    top: -10%; left: -10%; width: 120%; height: 120%;
-    background-repeat: repeat;
-}
-
-.layer-1 {
-    background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-    opacity: 0.4;
-    transition: transform 0.1s linear;
-}
-
-.layer-2 {
-    background-image: url('https://www.transparenttextures.com/patterns/stars-small.png');
-    opacity: 0.5;
-    transition: transform 0.2s linear;
-}
-
-/* Туманность */
-.layer-3 {
-    background: radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.2), transparent 70%);
-    transition: transform 0.3s linear;
-}
-
-/* === Контейнер === */
 .container {
     max-width: 1400px;
     margin: 0 auto;
@@ -61,16 +38,26 @@ body {
 
 header {
     text-align: center;
-    padding: 40px 0 20px;
+    padding: 50px 0 30px;
 }
 
-h1.glow-text {
-    font-size: 3.5rem;
+/* === ЛОГОТИП КАК НА СКРИНЕ === */
+.pixel-logo {
+    font-family: 'Russo One', sans-serif; /* Жирный блочный шрифт */
+    font-size: 4rem;
     margin: 0;
-    font-weight: 800;
-    letter-spacing: 3px;
-    color: #fff;
-    text-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+    letter-spacing: 2px;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-shadow: 4px 4px 0px #000000; /* Тень для объема */
+}
+
+.pixel-logo .purple-text {
+    color: #a855f7; /* Светло-фиолетовый как на скрине */
+}
+
+@media (max-width: 600px) {
+    .pixel-logo { font-size: 2.5rem; }
 }
 
 /* Поиск */
@@ -91,29 +78,30 @@ h1.glow-text {
 .search-box {
     width: 100%;
     padding: 15px 20px 15px 50px;
-    border-radius: 30px;
-    border: 2px solid rgba(176, 38, 255, 0.3);
-    background: rgba(20, 10, 40, 0.8);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.5);
     color: white;
     font-size: 1.1rem;
     outline: none;
     transition: 0.3s;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
     box-sizing: border-box;
 }
 
 .search-box:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 20px rgba(176, 38, 255, 0.5);
+    background: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 15px rgba(157, 0, 255, 0.3);
 }
 
-/* Навигация */
+/* Табы */
 .tabs-nav {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
-    margin: 30px 0;
+    margin: 40px 0;
 }
 
 .tab-btn {
@@ -121,83 +109,95 @@ h1.glow-text {
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--text-sec);
     padding: 10px 18px;
-    border-radius: 12px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 0.95rem;
-    transition: 0.3s;
+    transition: 0.2s;
     display: flex;
     align-items: center;
     gap: 8px;
+    font-weight: 600;
 }
 
-.tab-btn.active, .tab-btn:hover {
+.tab-btn:hover {
+    background: rgba(157, 0, 255, 0.2);
+    color: white;
+}
+
+.tab-btn.active {
     background: var(--accent);
     color: white;
     border-color: var(--accent-glow);
-    box-shadow: 0 0 15px rgba(176, 38, 255, 0.4);
+    box-shadow: 0 0 15px rgba(157, 0, 255, 0.4);
 }
 
 /* Сетка */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Адаптивная сетка */
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 15px;
-    animation: fadeIn 0.5s ease;
+    animation: fadeIn 0.4s ease;
 }
 
 @media (max-width: 600px) {
     .grid {
         grid-template-columns: repeat(2, 1fr); /* 2 колонки на телефоне */
-    }
-    h1.glow-text {
-        font-size: 2.5rem;
+        gap: 10px;
     }
 }
 
 .card {
     background: var(--card-bg);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
     padding: 15px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    text-align: center;
-    gap: 10px;
+    gap: 15px;
+    text-decoration: none;
     transition: 0.2s;
-    cursor: pointer;
     position: relative;
-    user-select: none;
+    backdrop-filter: blur(5px);
 }
 
 .card:hover {
     background: var(--card-hover);
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
 }
 
 .card img {
-    width: 48px;
-    height: 48px;
-    border-radius: 10px;
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
     background: rgba(0,0,0,0.2);
-    padding: 5px;
+    padding: 4px;
+    object-fit: contain; /* Чтобы иконка не плющилась */
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .card-title {
-    font-weight: 600;
-    font-size: 1rem;
+    font-weight: 700;
+    font-size: 0.95rem;
     color: white;
-    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card-desc {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-sec);
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 2px;
 }
 
 .fav-btn {
@@ -206,105 +206,25 @@ h1.glow-text {
     right: 5px;
     background: none;
     border: none;
-    color: rgba(255,255,255,0.2);
-    font-size: 1.2rem;
-    padding: 5px;
+    color: rgba(255,255,255,0.15);
+    font-size: 1.1rem;
+    padding: 8px;
     cursor: pointer;
-    z-index: 2;
+    transition: 0.2s;
+    z-index: 5;
+}
+
+.fav-btn:hover {
+    color: var(--star-color);
+    transform: scale(1.1);
 }
 
 .fav-btn.active {
     color: var(--star-color);
-    text-shadow: 0 0 10px var(--star-color);
-}
-
-/* === МОДАЛЬНОЕ ОКНО === */
-.modal-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(5px);
-    display: none; /* Скрыто по умолчанию */
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.modal-overlay.open {
-    display: flex;
-    opacity: 1;
-}
-
-.modal {
-    background: #251040;
-    border: 2px solid var(--accent);
-    width: 90%;
-    max-width: 500px;
-    border-radius: 20px;
-    padding: 30px;
-    position: relative;
-    box-shadow: 0 0 50px rgba(176, 38, 255, 0.4);
-    transform: scale(0.8);
-    transition: transform 0.3s;
-}
-
-.modal-overlay.open .modal {
-    transform: scale(1);
-}
-
-.close-modal {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 2rem;
-    cursor: pointer;
-}
-
-.modal-header {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 20px;
-}
-
-.modal-header img {
-    width: 64px;
-    height: 64px;
-    border-radius: 12px;
-}
-
-.modal-body p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #e0e0e0;
-}
-
-.action-btn {
-    display: block;
-    width: 100%;
-    background: var(--accent);
-    color: white;
-    text-align: center;
-    padding: 15px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-top: 25px;
-    transition: 0.3s;
-}
-
-.action-btn:hover {
-    background: #d980ff;
-    box-shadow: 0 0 20px var(--accent);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
