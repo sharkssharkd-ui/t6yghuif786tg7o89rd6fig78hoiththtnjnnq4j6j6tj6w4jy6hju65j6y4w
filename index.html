@@ -5,50 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Vesperia Hub</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Иконка-звездочка на вкладке -->
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/1828/1828884.png">
+    
+    <!-- Иконки и Шрифты -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Шрифт похожий на майнкрафт для логотипа -->
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=VT323&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Интерактивный фон (Параллакс) -->
-    <div id="parallax-container">
-        <div class="layer layer-1"></div>
-        <div class="layer layer-2"></div>
-        <div class="layer layer-3"></div>
-    </div>
+    <!-- Фон (Звезды) -->
+    <canvas id="starfield"></canvas>
 
     <div class="container">
         <header>
             <div class="logo-area">
-                <h1 class="glow-text">VESPERIA HUB</h1>
+                <!-- Логотип как на скрине -->
+                <h1 class="pixel-logo">VESPERIA <span class="purple-text">HUB</span></h1>
             </div>
             
             <div class="search-wrapper">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="search" class="search-box" placeholder="Поиск (понимает ghbdtn / привет)...">
+                <input type="text" id="search" class="search-box" placeholder="Поиск по базе...">
             </div>
         </header>
 
         <nav id="tabs-nav" class="tabs-nav"></nav>
         <div id="content"></div>
-    </div>
-
-    <!-- Модальное окно с описанием -->
-    <div id="modal-overlay" class="modal-overlay">
-        <div class="modal">
-            <button class="close-modal">&times;</button>
-            <div class="modal-header">
-                <img id="modal-icon" src="" alt="icon">
-                <h2 id="modal-title">Название сайта</h2>
-            </div>
-            <div class="modal-body">
-                <p id="modal-desc">Здесь будет подробное описание сайта...</p>
-            </div>
-            <div class="modal-footer">
-                <a id="modal-btn" href="#" target="_blank" class="action-btn">Перейти на сайт <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-            </div>
-        </div>
     </div>
 
     <script src="script.js"></script>
